@@ -10,8 +10,8 @@
         @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder="Enter the name of your task" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.Body)
-        @Html.TextAreaFor(t => t.Body, new { @class = "form-control", rows="5", cols="50", placeholder="Describe your task" })
+        @Html.LabelFor(t => t.Details.Details)
+        @Html.TextAreaFor(t => t.Details.Details, new { @class = "form-control", rows="5", cols="50", placeholder="Describe your task" }) 
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.EndDate)
