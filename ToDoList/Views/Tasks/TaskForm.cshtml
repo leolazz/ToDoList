@@ -3,7 +3,7 @@
     ViewData["Title"] = "New Task";
 }
 
-@using (Html.BeginForm("New", "Tasks"))
+@using (Html.BeginForm("Save", "Tasks"))
 {
     <div class="form-group">
         @Html.LabelFor(t => t.Title)
@@ -25,5 +25,5 @@
         @Html.LabelFor(t => t.EndDate)
         @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToString("yyyy-MM-dd") })
     </div>
-    <button type="button" class="btn btn-primary btn-lg btn-block">Create Task</button>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
 }

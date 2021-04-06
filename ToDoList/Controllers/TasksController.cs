@@ -2,12 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ToDoList.Data;
 using ToDoList.Models;
 
 namespace ToDoList.Controllers
 {
     public class TasksController : Controller
     {
+        private ApplicationDbContext _context;
+        public TasksController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        
         public IActionResult Index()
         {
             return View();
@@ -19,10 +26,12 @@ namespace ToDoList.Controllers
             
            return View("TaskForm", Task);
         }
-
-        public ActionResult Save()
+        [HttpPost]
+        public ActionResult Save(Task task)
         {
-            return View();
+            _context.Add(task);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Tasks");
         }
     }
 }  
