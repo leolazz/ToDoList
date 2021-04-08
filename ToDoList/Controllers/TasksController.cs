@@ -46,9 +46,9 @@ namespace ToDoList.Controllers
 
         public IActionResult GetTasks()
         {
-            var Tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).SingleOrDefault(t => t.Id == 1);
-
-            return View(Tasks);
+            var Tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).SingleOrDefault(t => t.Id == 3);
+            var taskDto = _mapper.Map<TaskDto>(Tasks);
+            return View(taskDto);
         }
     }
 }  
