@@ -1,0 +1,13 @@
+﻿@model ToDoList.Models.Task
+@{
+    ViewData["Title"] = "Doing";
+}
+
+<h2>@Model.Title</h2>
+<h5>@Model.CreatedDate</h5>
+<p>@Model.Details</p>
+<ul>
+    <li>@Model.Qualifiers.Qualifiers</li>
+    <li>@Model.Outcomes.Outcomes</li>
+</ul>
+<h5>@Model.EndDate</h5>
