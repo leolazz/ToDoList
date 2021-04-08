@@ -15,9 +15,10 @@ namespace ToDoList.Controllers
             _context = context;
         }
         
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
+            return View("Index", "Home");
+
         }
 
         public ActionResult New()

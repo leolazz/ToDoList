@@ -8,8 +8,9 @@ namespace ToDoList.Models
 {
     public class TaskOutcomes
     {
-        [Required] 
-        public byte Id { get; set; }
+        [Required]
+        [Key]
+        public int Id { get; set; }
         public string Outcomes { get; set; }
     }
 }

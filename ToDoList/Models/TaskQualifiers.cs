@@ -9,7 +9,8 @@ namespace ToDoList.Models
     public class TaskQualifiers
     {
         [Required]
-        public byte Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string Qualifiers { get; set; }
     }
 }
