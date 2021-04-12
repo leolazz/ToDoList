@@ -1,21 +1,29 @@
-﻿@model ToDoList.Models.Task
+﻿@model ToDoList.DTOs.TaskDto
 @{
     ViewData["Title"] = "New Task";
 }
 
-@using (Html.BeginForm("New", "Tasks"))
+@using (Html.BeginForm("Save", "Tasks"))
 {
     <div class="form-group">
         @Html.LabelFor(t => t.Title)
-        @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder="Enter the name of your task" })
+        @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder = "Enter the name of your task" })
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.Details.Details)
-        @Html.TextAreaFor(t => t.Details.Details, new { @class = "form-control", rows="5", cols="50", placeholder="Describe your task" }) 
+        @Html.TextAreaFor(t => t.Details.Details, new { @class = "form-control", rows = "5", cols = "50", placeholder = "Describe your task" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Qualifiers.Qualifiers)
+        @Html.TextAreaFor(t => t.Qualifiers.Qualifiers, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define the Qualifers for this Task" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Outcomes.Outcomes)
+        @Html.TextAreaFor(t => t.Outcomes.Outcomes, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define an Outcome of this Task" })
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.EndDate)
         @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToString("yyyy-MM-dd") })
     </div>
-    <button type="button" class="btn btn-primary btn-lg btn-block">Create Task</button>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
 }

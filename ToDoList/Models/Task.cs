@@ -9,7 +9,7 @@ namespace ToDoList.Models
     public class Task
     {
         [Required]
-        public byte Id { get; set; }
+        public  int Id { get; set; }
         public string Title { get; set; }
         public TaskDetails Details { get; set; }
         public TaskOutcomes Outcomes { get; set; }

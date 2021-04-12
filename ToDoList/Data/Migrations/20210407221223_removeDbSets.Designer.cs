@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoList.Data;
 
 namespace ToDoList.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210407221223_removeDbSets")]
+    partial class removeDbSets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,90 +221,6 @@ namespace ToDoList.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ToDoList.Models.Task", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ETA")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OutcomesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QualifiersId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DetailsId");
-
-                    b.HasIndex("OutcomesId");
-
-                    b.HasIndex("QualifiersId");
-
-                    b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("ToDoList.Models.TaskDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Details")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Details");
-                });
-
-            modelBuilder.Entity("ToDoList.Models.TaskOutcomes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Outcomes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Outcomes");
-                });
-
-            modelBuilder.Entity("ToDoList.Models.TaskQualifiers", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Qualifiers")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Qualifiers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -352,27 +270,6 @@ namespace ToDoList.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ToDoList.Models.Task", b =>
-                {
-                    b.HasOne("ToDoList.Models.TaskDetails", "Details")
-                        .WithMany()
-                        .HasForeignKey("DetailsId");
-
-                    b.HasOne("ToDoList.Models.TaskOutcomes", "Outcomes")
-                        .WithMany()
-                        .HasForeignKey("OutcomesId");
-
-                    b.HasOne("ToDoList.Models.TaskQualifiers", "Qualifiers")
-                        .WithMany()
-                        .HasForeignKey("QualifiersId");
-
-                    b.Navigation("Details");
-
-                    b.Navigation("Outcomes");
-
-                    b.Navigation("Qualifiers");
                 });
 #pragma warning restore 612, 618
         }
