@@ -3,8 +3,8 @@
 2BDone is a Web Based To Do List
 
 ## Installation
-
-Download ToDoList project folder and open in visual studio .NETCore MVC framework installation
+Framework Target .NETCore 5.0 MVC
+Download ToDoList project folder and open in visual studio
 
 ## Requirements
 Following packages available from NuGet:
