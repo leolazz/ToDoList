@@ -34,6 +34,12 @@ namespace ToDoList.Controllers
             
            return View("TaskForm", taskDto);
         }
+        public ActionResult Edit(int id)
+        {
+            var task = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).SingleOrDefault(t => t.Id == id);
+            
+            return View("Edit", _mapper.Map<TaskDto>(task));
+        }
         [HttpPost]
         public ActionResult Save(TaskDto taskDto)
         {
@@ -58,7 +64,7 @@ namespace ToDoList.Controllers
         public ActionResult Search(string searchString)
         {
             // There might be a more efficient way of doing this. This could be an issue depending on the collation of the DB
-            var task = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).Where(x => EF.Functions.Like(x.Title, $"%{searchString}%")).ToList();
+            var task = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).Where(x => EF.Functions.Like(x.Title, $"%{searchString}%")).ToList();
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Doing",  taskDto);
         }
