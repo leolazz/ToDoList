@@ -1,44 +1,29 @@
-﻿@model IEnumerable<ToDoList.DTOs.TaskDto>
+﻿@model ToDoList.DTOs.TaskDto
 @{
-    ViewData["Title"] = "Doing";
+    ViewData["Title"] = "New Task";
 }
 
-
-
-@{
-    foreach (var task in Model)
-    {
-        <div class="container-fluid">
-            <div class="bs-component">
-                <div class="card mb-3">
-                    <h3 class="card-header">Task</h3>
-                    <div class="card-footer text-muted">
-                        Created On @task.CreatedDate.ToShortDateString()
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@task.Title</h5>
-                        <h6 class="card-subtitle text-muted">Some extra shit</h6>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Would Images Be Useful?" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                        <rect width="100%" height="100%" fill="#868e96" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#585f63;"></rect>
-                        <text x="50%" y="50%" fill="#dee2e6" dy=".3em" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#d6d2cd;">Image cap</text>
-                    </svg>
-                    <div class="card-body">
-                        <p class="card-text">@task.Details</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><p class="font-italic">Qualifers</p> <p class="font-weight-bold">@task.Qualifiers.Qualifiers</p></li>
-                        <li class="list-group-item"><p class="font-italic">Outcomes</p> <p class="font-weight-bold">@task.Outcomes.Outcomes</p></li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Edit Task</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Deadline @task.EndDate.ToShortDateString()
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
+@using (Html.BeginForm("Save", "Tasks"))
+{
+    <div class="form-group">
+        @Html.LabelFor(t => t.Title)
+        @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder = "Enter the name of your task" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Details.Details)
+        @Html.TextAreaFor(t => t.Details.Details, new { @class = "form-control", rows = "5", cols = "50", placeholder = "Describe your task" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Qualifiers.Qualifiers)
+        @Html.TextAreaFor(t => t.Qualifiers.Qualifiers, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define the Qualifers for this Task" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Outcomes.Outcomes)
+        @Html.TextAreaFor(t => t.Outcomes.Outcomes, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define an Outcome of this Task" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.EndDate)
+        @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToString("yyyy-MM-dd") })
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
 }
