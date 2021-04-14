@@ -47,12 +47,6 @@ namespace ToDoList.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public IActionResult GetTasks()
-        //{
-        //    var Tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).SingleOrDefault(t => t.Id == 1);
-        //    var taskDto = _mapper.Map<TaskDto>(Tasks);
-        //    return View(taskDto);
-        //}
         public ActionResult GetTasks()
         {
             
@@ -60,8 +54,13 @@ namespace ToDoList.Controllers
             var tasksDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
             return View("Doing", tasksDto);
                 
-            
-
+        }
+        public ActionResult Search(string searchString)
+        {
+            // There might be a more efficient way of doing this. This could be an issue depending on the collation of the DB
+            var task = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).Where(x => EF.Functions.Like(x.Title, $"%{searchString}%")).ToList();
+            var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
+            return View("Doing",  taskDto);
         }
     }
 }  
