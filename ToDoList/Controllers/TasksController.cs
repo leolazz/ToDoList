@@ -37,18 +37,31 @@ namespace ToDoList.Controllers
         [HttpPost]
         public ActionResult Save(TaskDto taskDto)
         {
-            var task = _mapper.Map<Task>(taskDto);
-
-            _context.Add(task);
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                taskDto.CreatedDate = DateTime.Now;
+                var task = _mapper.Map<Task>(taskDto);
+                _context.Add(task);
+                _context.SaveChanges();
+            }
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult GetTasks()
+        //public IActionResult GetTasks()
+        //{
+        //    var Tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).SingleOrDefault(t => t.Id == 1);
+        //    var taskDto = _mapper.Map<TaskDto>(Tasks);
+        //    return View(taskDto);
+        //}
+        public ActionResult GetTasks()
         {
-            var Tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).SingleOrDefault(t => t.Id == 3);
-            var taskDto = _mapper.Map<TaskDto>(Tasks);
-            return View(taskDto);
+            
+            var tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).ToList();
+            var tasksDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
+            return View("Doing", tasksDto);
+                
+            
+
         }
     }
 }  
