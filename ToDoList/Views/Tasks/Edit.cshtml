@@ -1,9 +1,9 @@
 ﻿@model ToDoList.DTOs.TaskDto
 @{
-    ViewData["Title"] = "New Task";
+    ViewData["Title"] = "Edit Task";
 }
 
-@using (Html.BeginForm("Save", "Tasks"))
+@using (Html.BeginForm("Edit", "Tasks"))
 {
     <div class="form-group">
         @Html.LabelFor(t => t.Title)

@@ -1,4 +1,7 @@
 ﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@{
     foreach (var task in Model)
     {
         <div class="container-fluid">
@@ -17,15 +20,14 @@
                         <text x="50%" y="50%" fill="#dee2e6" dy=".3em" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#d6d2cd;">Image cap</text>
                     </svg>
                     <div class="card-body">
-                        <p class="card-text">@task.Details</p>
+                        <p class="card-text">@task.Details.Details</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><p class="font-italic">Qualifers</p> <p class="font-weight-bold">@task.Qualifiers.Qualifiers</p></li>
                         <li class="list-group-item"><p class="font-italic">Outcomes</p> <p class="font-weight-bold">@task.Outcomes.Outcomes</p></li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Edit Task</a>
-                        <a href="#" class="card-link">Another link</a>
+                        @Html.ActionLink("Edit", "Edit", new { id = task.Id, @class = "card-link" }, null)
                     </div>
                     <div class="card-footer text-muted">
                         Deadline @task.EndDate.ToShortDateString()
