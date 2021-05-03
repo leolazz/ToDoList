@@ -20,7 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
-      working-directory: ToDoList/ToDoList
+      run: dotnet build ToDoList.sln --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
