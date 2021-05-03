@@ -18,7 +18,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore ToDoList/ToDoList
     - name: Build
       run: dotnet build ToDoList.sln --no-restore
     - name: Test
