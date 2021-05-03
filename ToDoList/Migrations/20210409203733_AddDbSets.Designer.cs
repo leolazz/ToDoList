@@ -8,7 +8,7 @@ using ToDoList.Data;
 
 namespace ToDoList.Migrations
 {
-    [DbContext(typeof(SQLiteDbContext.SQLiteDBContext))]
+    [DbContext(typeof(SQLiteDBContext))]
     [Migration("20210409203733_AddDbSets")]
     partial class AddDbSets
     {

@@ -7,7 +7,7 @@ using ToDoList.Data;
 
 namespace ToDoList.Migrations
 {
-    [DbContext(typeof(SQLiteDbContext.SQLiteDBContext))]
+    [DbContext(typeof(SQLiteDBContext))]
     partial class SQLiteDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -13,8 +13,8 @@ namespace ToDoList.Controllers
     public class TasksController : Controller
     {
         private readonly IMapper _mapper;
-        private ApplicationDbContext _context;
-        public TasksController(ApplicationDbContext context, IMapper mapper)
+        private SQLiteDBContext _context;
+        public TasksController(SQLiteDBContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

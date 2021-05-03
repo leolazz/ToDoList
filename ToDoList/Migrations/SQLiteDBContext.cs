@@ -7,9 +7,7 @@ using ToDoList.Models;
 
 namespace ToDoList.Data
 {
-    public class SQLiteDbContext
-    {
-
+    
         public class SQLiteDBContext : IdentityDbContext
         {
             public DbSet<Task> Tasks { get; set; }
@@ -17,9 +15,14 @@ namespace ToDoList.Data
             public DbSet<TaskOutcomes> Outcomes { get; set; }
             public DbSet<TaskQualifiers> Qualifiers { get; set; }
 
-            protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite("Data Source=sqlitetodolist.db");
+            protected override void OnConfiguring(DbContextOptionsBuilder options) 
+                => options.UseSqlite("Data Source=data/sqlitetodolist.db");
+            public SQLiteDBContext(DbContextOptions<SQLiteDBContext> options)
+            : base(options)
+            {
+            
+            }
 
         }
 
     }
-}
