@@ -2,9 +2,11 @@ name: ToDoList .Net
 
 on:
   push:
-    branches: [ main ]
+    branches:  
+    - main 
   pull_request:
-    branches: [ main ]
+    branches: 
+    - main 
 
 jobs:
   build:
@@ -18,8 +20,10 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+    - run: dotnet restore
+    - workingdirectory: ./ToDoList
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ToDoList.sln --no-restore
+    - workingdirectory: ./ToDoList
     - name: Test
       run: dotnet test --no-build --verbosity normal
