@@ -8,7 +8,7 @@ using ToDoList.Data;
 
 namespace ToDoList.Migrations
 {
-    [DbContext(typeof(SQLiteDbContext.SQLiteDBContext))]
+    [DbContext(typeof(SQLiteDBContext))]
     [Migration("20210409192738_SqliteTest")]
     partial class SqliteTest
     {

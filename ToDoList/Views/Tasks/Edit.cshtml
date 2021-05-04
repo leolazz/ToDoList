@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.EndDate)
-        @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToString("yyyy-MM-dd") })
+        @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToShortDateString(), })
     </div>
     <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
 }
