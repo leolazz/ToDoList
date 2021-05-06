@@ -6,7 +6,9 @@ services:
       ports: 
         - "5000:80"
       volumes:
-        - C:\Users\Leo\source\repos\Personal\ToDoList\sqlitetodolist.db:/ToDoList/
+        - type: bind
+          source: ./ToDoList/DB
+          target: /ToDoList/DB
       environment:
         - Development
 

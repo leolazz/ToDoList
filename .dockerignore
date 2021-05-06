@@ -1,2 +1,4 @@
-.db
-obj/
+.\ToDoList\obj
+.\sqlitetodolist.db
+.\sqlitetodolist.db-wal
+.\sqlitetodolist.db-shm
