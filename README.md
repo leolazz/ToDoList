@@ -5,7 +5,8 @@
 2BDone is a Web Based To Do List
 
 ## Installation
-Framework Target .NETCore 5.0 MVC
+Target ASP.NETCore 5.0 MVC
+
 Download ToDoList project folder and open in visual studio
 
 ## Requirements
@@ -24,7 +25,43 @@ System.Data.SQLite.Core (1.0.113.7)
 
 ## Usage
 
+```bash
+# build the solution
+$ dotnet build
+```
 
+```bash
+# run the solution
+$ dotnet run
+```
+
+## Docker
+
+```bash
+# pull the image
+$ docker pull leolazz/2bdone
+```
+
+```bash
+# build the container image
+$ docker build -t <ImageName>:<TagName> .
+```
+
+```bash
+# docker run the built container image
+# OPTIONAL: Add a bind mount to a SQLite .db for persistance
+$ docker run -it -p 5001:80 --name <ContainerName> <ImageName>
+```
+
+```bash
+# push the built container image to docker hub
+$ docker push leolazz/2bdone:<TagName>
+```
+
+```bash
+# run the pulled image
+$ docker run leolazz/2bdone:<TagName>
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
