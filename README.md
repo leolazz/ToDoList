@@ -63,6 +63,13 @@ $ docker push leolazz/2bdone:<TagName>
 $ docker run leolazz/2bdone:<TagName>
 ```
 
+## Docker-compose
+
+```bash
+# launch with docker-compose
+$ docker-compose up
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
