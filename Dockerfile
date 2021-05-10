@@ -14,7 +14,7 @@ RUN dotnet restore
 # compiles the application as a release, sets the output in the container, and skips restore command.
 COPY . ./
 WORKDIR /app
-RUN dotnet publish -c debug --no-restore
+RUN dotnet publish -c debug -o /app --no-restore
 
 # selects the asp.net 5.0 image
 # sets the working directory
