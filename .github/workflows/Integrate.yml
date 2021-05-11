@@ -21,12 +21,12 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: ./ToDoList
+      working-directory: ./
 
     - name: Build
       run: dotnet build ToDoList.sln --no-restore
-      working-directory: ./ToDoList
+      working-directory: ./
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: ./ToDoList
+      working-directory: ./
