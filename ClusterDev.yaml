@@ -1,0 +1,97 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tobedone-deployment
+  labels:
+    app: tobedone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tobedone
+  template:
+    metadata:
+      labels:
+        app: tobedone
+    spec:
+      containers:
+        - name: tobedone
+          image: leolazz/2bdone:2.0
+          ports:
+              - containerPort: 80 
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          volumeMounts:
+          - mountPath: /config
+            name: tobedone-data
+            subPath: config
+          - mountPath: /data
+            name: tobedone-data
+            subPath: data
+          imagePullPolicy: IfNotPresent
+      volumes:
+      - name: tobedone-data
+        persistentVolumeClaim:
+          claimName: tobedone-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tobedone-pvc
+  namespace: default
+  labels:
+    app: tobedone
+spec:
+  accessModes:
+    - ReadWriteOnce
+  # storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tobedone-service
+  labels:
+    app: tobedone
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    name: tcp
+  selector:
+    app: tobedone
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: tobedone-ingress
+  labels:
+    app: tobedone
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    # traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  # tls:
+  #   - secretName: internal-acme-crt-secret
+  #     hosts:
+  #       - '*.internal.lazz.tech'
+  rules:
+  - host: tobedone.test.com  
+    http:
+      paths:
+      - backend:
+          serviceName: tobedone-service
+          servicePort: 80
