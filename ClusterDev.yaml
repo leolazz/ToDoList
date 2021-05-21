@@ -33,12 +33,8 @@ spec:
               memory: "512Mi"
               cpu: "1000m"
           volumeMounts:
-          - mountPath: /config
+          - mountPath: /ToDoList/data/
             name: tobedone-data
-            subPath: config
-          - mountPath: /data
-            name: tobedone-data
-            subPath: data
           imagePullPolicy: IfNotPresent
       volumes:
       - name: tobedone-data
@@ -55,7 +51,6 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  # storageClassName: longhorn
   resources:
     requests:
       storage: 2Gi
