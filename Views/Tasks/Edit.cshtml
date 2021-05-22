@@ -24,6 +24,7 @@
     <div class="form-group">
         @Html.LabelFor(t => t.EndDate)
         @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToShortDateString(), })
+        <p class="text-muted">Orignal Deadline: @Model.EndDate.ToShortDateString() </p>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+    <button type="submit" class="btn btn-primary btn-block   ">Save</button>
 }

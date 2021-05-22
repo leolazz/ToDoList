@@ -2,9 +2,6 @@
 @{
     ViewData["Title"] = "Doing";
 }
-
-
-
 @{
     foreach (var task in Model)
     {
@@ -19,7 +16,6 @@
                         <h5 class="card-title">@task.Title</h5>
                         <h6 class="card-subtitle text-muted">Some extra shit</h6>
                     </div>
-                    
                     <div class="card-body">
                         <p class="card-text">@task.Details</p>
                     </div>
