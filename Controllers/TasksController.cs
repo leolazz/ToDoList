@@ -56,7 +56,7 @@ namespace ToDoList.Controllers
         public ActionResult GetTasks()
         {
             
-            var tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).ToList();
+            var tasks = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).ToList();
             var tasksDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
             return View("Doing", tasksDto);
                 
@@ -66,7 +66,7 @@ namespace ToDoList.Controllers
             // There might be a more efficient way of doing this. This could be an issue depending on the collation of the DB
             var task = _context.Tasks.Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).Where(x => EF.Functions.Like(x.Title, $"%{searchString}%")).ToList();
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
-            return View("Doing",  taskDto);
+            return View("Results",  taskDto);
         }
     }
 }  
