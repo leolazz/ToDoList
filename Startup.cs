@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoList.Data;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ToDoList
 {
@@ -35,6 +36,13 @@ namespace ToDoList
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<SQLiteDBContext>();
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+                }); 
             services.AddControllersWithViews();
         }
 

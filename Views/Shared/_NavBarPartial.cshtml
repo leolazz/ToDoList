@@ -20,15 +20,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Done</a>
                     </li>
-
+                    @{
+                        string account;
+                        if (User.Identity.Name == null)
+                            account = "Account";
+                        else
+                            account = User.Identity.Name;
+                        string login;
+                    }
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account Name</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@account</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="@Url.Content("/Identity/Account/Manage")">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Logout</a>
+                            <a class="dropdown-item text-danger" href="@Url.Content("/Identity/Account/Logout")">Logout</a>
                         </div>
                     </li>
                 </ul>
