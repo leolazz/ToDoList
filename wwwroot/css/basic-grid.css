@@ -3,3 +3,74 @@
     gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
  }
+.card-dark {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #004953;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.dropdown-item-dark:hover, .dropdown-item:focus {
+    color: #0d0d0d;
+    text-decoration: none;
+    background-color: #004953;
+}
+.dropdown-item-dark {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #1a1a1a;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+.dropdown-divider-dark {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #f7f7f9;
+    opacity: 0.5;
+}
+.navbar-brand-lg {
+    display: inline-block;
+    padding-top: 0.335938rem;
+    padding-bottom:0;
+    margin-right: 1rem;
+    font-size: 2.09375rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.5rem);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: rgb(0 73 83 / 0.69);
+    background-clip: padding-box;
+    border: 0 solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn-secondary {
+    color: #1a1a1a;
+    background-color: #00C2DB;
+    border-color: #00C2DB;
+}
+
+    .btn-secondary:hover {
+        color: #1a1a1a;
+        background-color: #343a40;
+        border-color: #343a40;
+    }
