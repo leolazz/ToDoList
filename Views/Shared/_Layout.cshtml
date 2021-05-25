@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ²BD</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lux.min.css" />
+    <link rel="stylesheet" href="~/css/color.css?v=1" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/basic-grid.css" />
 </head>
-<body>
+<body class="bg-dark">
     <header>
         @await Html.PartialAsync("_NavBarPartial")
     </header>
@@ -29,3 +30,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

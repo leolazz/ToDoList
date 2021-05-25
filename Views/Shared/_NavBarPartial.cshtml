@@ -1,41 +1,45 @@
 ﻿@{
     <div class="bs-component">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">²BᵉDᵒⁿᵉ</a>
-            <div class=" text-center"><a class="nav-item btn-primary btn-sm " href="@Url.Action("New", "Tasks")">New Task</a></div>
+        <nav style="background-color: #004953" class="navbar navbar-dark navbar-expand-lg bg-Midnight">
+            <a class="text-nowrap navbar-brand-lg text-white-50 " href="@Url.Action("Index", "Home")">²BᵉDᵒⁿᵉ</a>
+            <div class="text-nowrap basic-grid"><a class="nav-item btn-primary text-lg-center btn-sm " href="@Url.Action("New", "Tasks")">New Task</a></div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="@Url.Action("Index", "Home")">
+                        <a class="nav-link text-white-50" href="@Url.Action("Index", "Home")">
                             Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("GetTasks", "Tasks")">Doing</a>
+                        <a class="nav-link text-white-50" href="@Url.Action("GetTasks", "Tasks")">Doing</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Done</a>
+                    <li class="nav-item ">
+                        <a class="nav-link text-white-50" href="#">Done</a>
                     </li>
-
+                    @{
+                        string account;
+                        if (User.Identity.Name == null)
+                            account = "Account";
+                        else
+                            account = User.Identity.Name;
+                    }
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account Name</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Logout</a>
+                        <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@account</a>
+                        <div class="dropdown-menu bg-dark">
+                            <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Identity/Account/Manage")">Settings</a>
+                            <div class="dropdown-divider-dark"></div>
+                            <a class="dropdown-item-dark text-danger" href="@Url.Content("/Identity/Account/Logout")">Logout</a>
                         </div>
                     </li>
                 </ul>
 
-                <form asp-controller="Tasks" asp-action="Search" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" name="SearchString" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                <form asp-controller="Tasks" asp-action="Search" class="form-inline my-2 my-lg-0 my-auto">
+                    <input class="form-control mr-sm-2 " type="text" name="SearchString" placeholder="Search">
+                    <button class="btn btn-secondary btn-sm my-2 my-sm-0 text-white-50" type="submit">Search</button>
                 </form>
 
             </div>
