@@ -56,7 +56,8 @@
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #55595c;
+    color: #fff;
+    opacity: 0.5;
     background-color: rgb(0 73 83 / 0.69);
     background-clip: padding-box;
     border: 0 solid #ced4da;
@@ -68,9 +69,19 @@
     background-color: #00C2DB;
     border-color: #00C2DB;
 }
-
-    .btn-secondary:hover {
+.btn-secondary:hover {
         color: #1a1a1a;
         background-color: #343a40;
         border-color: #343a40;
-    }
+}
+h1-dark, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+    opacity: 0.5;
+}
+.border-top-midnight {
+    border-top: 1.5px solid rgba(255,255,255, 0.5) !important;
+}

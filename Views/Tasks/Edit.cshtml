@@ -6,25 +6,25 @@
 @using (Html.BeginForm("Edit", "Tasks"))
 {
     <div class="form-group">
-        @Html.LabelFor(t => t.Title)
+        @Html.LabelFor(t => t.Title, new { @class = "text-white-50" })
         @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder = "Enter the name of your task" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.Details.Details)
+        @Html.LabelFor(t => t.Details.Details, new { @class = "text-white-50" })
         @Html.TextAreaFor(t => t.Details.Details, new { @class = "form-control", rows = "5", cols = "50", placeholder = "Describe your task" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.Qualifiers.Qualifiers)
+        @Html.LabelFor(t => t.Qualifiers.Qualifiers, new { @class = "text-white-50" })
         @Html.TextAreaFor(t => t.Qualifiers.Qualifiers, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define the Qualifers for this Task" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.Outcomes.Outcomes)
+        @Html.LabelFor(t => t.Outcomes.Outcomes, new { @class = "text-white-50" })
         @Html.TextAreaFor(t => t.Outcomes.Outcomes, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define an Outcome of this Task" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.EndDate)
+        @Html.LabelFor(t => t.EndDate, new { @class = "text-white-50" })
         @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToShortDateString(), })
-        <p class="text-muted">Orignal Deadline: @Model.EndDate.ToShortDateString() </p>
+        <p class="text-muted ">Orignal Deadline: @Model.EndDate.ToShortDateString() </p>
     </div>
     <button type="submit" class="btn btn-primary btn-block   ">Save</button>
 }
