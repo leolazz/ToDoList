@@ -45,7 +45,12 @@ namespace ToDoList.Controllers
         }
         public ActionResult Edit(int id)
         {
-            var task = _context.Tasks.Where(t => t.UserId == _userManager.GetUserId(User)).Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).SingleOrDefault(t => t.Id == id);
+            var task = _context.Tasks
+                .Where(t => t.UserId == _userManager.GetUserId(User))
+                .Include(t => t.Qualifiers)
+                .Include(t => t.Outcomes)
+                .Include(t => t.Details)
+                .SingleOrDefault(t => t.Id == id);
             
             return View("Edit", _mapper.Map<TaskDto>(task));
         }
@@ -66,7 +71,13 @@ namespace ToDoList.Controllers
 
         public ActionResult GetTasks()
         {
-            var tasks = _context.Tasks.Where(t => t.UserId == _userManager.GetUserId(User)).Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).ToList();
+            var tasks = _context.Tasks
+                .Where(t => t.UserId == _userManager.GetUserId(User))
+                .Where(t => t.Completed == false)
+                .Include(t => t.Qualifiers)
+                .Include(t => t.Outcomes)
+                .Include(t => t.Details)
+                .ToList();
             var tasksDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
             return View("Doing", tasksDto);
                 
@@ -74,9 +85,28 @@ namespace ToDoList.Controllers
         public ActionResult Search(string searchString)
         {
             // There might be a more efficient way of doing this. This could be an issue depending on the collation of the DB
-            var task = _context.Tasks.Where(t => t.UserId == _userManager.GetUserId(User)).Include(t => t.Qualifiers).Include(t => t.Outcomes).Include(t => t.Details).Where(x => EF.Functions.Like(x.Title, $"%{searchString}%")).ToList();
+            var task = _context.Tasks
+                .Where(t => t.UserId == _userManager.GetUserId(User))
+                .Include(t => t.Qualifiers)
+                .Include(t => t.Outcomes)
+                .Include(t => t.Details)
+                .Where(x => EF.Functions.Like(x.Title, $"%{searchString}%"))
+                .ToList();
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Results",  taskDto);
         }
+        public ActionResult Done()
+        {
+            var task = _context.Tasks
+                .Where(t => t.UserId == _userManager.GetUserId(User))
+                .Where(t => t.Completed == true)
+                .Include(t => t.Qualifiers)
+                .Include(t => t.Outcomes)
+                .Include(t => t.Details)
+                .ToList();
+            var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
+            return View("Done", taskDto);
+        }
+        
     }
 }  

@@ -21,5 +21,7 @@ namespace ToDoList.Models
         [Display(Name = "Deadline")]
         public DateTime EndDate { get; set; }
         public DateTime ETA { get; set; }
+        [Display(Name = "Task Status")]
+        public bool Completed { get; set; }
     }
 }
