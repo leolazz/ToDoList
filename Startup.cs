@@ -34,8 +34,16 @@ namespace ToDoList
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<SQLiteDBContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>
+                (options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<SQLiteDBContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+            //services.AddDefaultIdentity<IdentityUser>
+            //    (options => options.SignIn.RequireConfirmedAccount = false)
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<SQLiteDBContext>();
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
