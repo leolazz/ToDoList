@@ -11,9 +11,8 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #004953;
+    background-color: #343a40;
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
 }
 .dropdown-item-dark:hover, .dropdown-item:focus {
     color: #0d0d0d;

@@ -11,6 +11,7 @@ using ToDoList.DTOs;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Principal;
+using ToDoList.ViewModels;
 
 namespace ToDoList.Controllers
 {
@@ -75,8 +76,10 @@ namespace ToDoList.Controllers
                 .Include(t => t.Outcomes)
                 .Include(t => t.Details)
                 .ToList();
-            var tasksDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
-            return View("Doing", tasksDto);
+            TasksViewModel viewModel = new TasksViewModel();
+            
+            viewModel.taskDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
+            return View("Doing", viewModel);
                 
         }
         public ActionResult Search(string searchString)

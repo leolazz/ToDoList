@@ -1,21 +1,39 @@
-﻿@model IEnumerable<ToDoList.DTOs.TaskDto>
+﻿@model ToDoList.ViewModels.TasksViewModel
 @{
     ViewData["Title"] = "Doing";
 }
+
+
 @{
     <h1 class="text-center text-white-50"> Ongoing Tasks</h1>
     <section style="background-color: #343a40"class="basic-grid">
-        @foreach (var task in Model)
+        @foreach (var task in Model.taskDto)
         {
+            TimeSpan eta = task.EndDate - DateTime.Now;
+            string color;
+            string PastOrRemaing;
+            
+            if (task.EndDate < DateTime.Now)
+                PastOrRemaing = "Past Deadline";
+            else
+                PastOrRemaing = "Remaing";
+            if (eta.Days <= 7)
+            {
+                if(eta.Days < 0)
+                {
+                    color = Model.Colors[0];
+                } else
+                color = Model.Colors[eta.Days];
+            }
+            else color = "#004953";
             <div class="card-dark">
                 <div class="bs-component">
                     <div class="card mb-3" style="background-color: #004953">
-                        <h3 class="card-header text-white-50">Task</h3>
+                        <h3 class="card-header text-white-50" style="background-color:@color">@Html.ActionLink("Edit", "Edit", new { id = task.Id, @class = "btn-primary btn-sm text-white-50" }, null)</h3>
                         <div class="card-footer text-muted">
-                            Created On @task.CreatedDate.ToShortDateString()
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title text-white-50">@task.Title</h5>
+                            <h5 class="card-title text-white">@task.Title</h5>
                             <h6 class="card-subtitle text-muted">Some extra shit</h6>
                         </div>
                         <div class="card-body">
@@ -25,16 +43,18 @@
                             <li style="background-color: #004953" class="list-group-item"><p class="font-italic text-white-50">Qualifers</p> <p class="font-weight-bold text-white-50">@task.Qualifiers.Qualifiers</p></li>
                             <li style="background-color: #004953" class="list-group-item"><p class="font-italic text-white-50">Outcomes</p> <p class="font-weight-bold text-white-50">@task.Outcomes.Outcomes</p></li>
                         </ul>
-                        <div class="card-body">
-                            @Html.ActionLink("Edit", "Edit", new { id = task.Id, @class = "btn-primary btn-sm text-white-50" }, null)
+                        <div class="card-footer text-muted font-italic">
+                            Deadline: @task.EndDate.ToShortDateString()
+                        </div>
+                        <div class="card-footer text-muted font-italic">
+                            Days @PastOrRemaing: @eta.ToString("%d")
                         </div>
                         <div class="card-footer text-muted">
-                            Deadline @task.EndDate.ToShortDateString()
+                            Created On @task.CreatedDate.ToShortDateString()
                         </div>
                     </div>
                 </div>
             </div>
-
         }
     </section>
 }
