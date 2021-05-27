@@ -25,12 +25,6 @@ namespace ToDoList.Controllers
             _mapper = mapper;
             _userManager = userManager;
         }
-        public class test
-        {
-            public string teststring { get; set; }
-        }
-            
-
         public ActionResult Index()
         {
             return View("Index", "Home");   
@@ -72,7 +66,6 @@ namespace ToDoList.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
         public ActionResult GetTasks()
         {
             var tasks = _context.Tasks
@@ -111,6 +104,5 @@ namespace ToDoList.Controllers
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Done", taskDto);
         }
-        
     }
 }  
