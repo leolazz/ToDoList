@@ -45,7 +45,7 @@ namespace ToDoList.Controllers
         }
         public ActionResult Edit(int id)
         {
-            var task = _context.Tasks
+            Task task = _context.Tasks
                 .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Include(t => t.Qualifiers)
                 .Include(t => t.Outcomes)
@@ -54,20 +54,24 @@ namespace ToDoList.Controllers
             
             return View("Edit", _mapper.Map<TaskDto>(task));
         }
+
         [HttpPost]
-        public ActionResult Save(TaskDto taskDto, string OwnerId)
+        public ActionResult Save(TaskDto taskDto)
         {
             
             if (ModelState.IsValid)
             {
-                taskDto.CreatedDate = DateTime.Now;
                 var task = _mapper.Map<Task>(taskDto);
-                task.UserId = _userManager.GetUserId(User);
-                _context.Add(task);
+                if(task.Id == 0)
+                {
+                    task.CreatedDate = DateTime.Now;
+                    task.UserId = _userManager.GetUserId(User);
+                }
+                _context.Update(task);
                 _context.SaveChanges();
             }
             return RedirectToAction("Index", "Home");
-        }
+      
 
         public ActionResult GetTasks()
         {

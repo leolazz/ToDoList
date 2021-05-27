@@ -3,7 +3,7 @@
     ViewData["Title"] = "Edit Task";
 }
 
-@using (Html.BeginForm("Edit", "Tasks"))
+@using (Html.BeginForm("Save", "Tasks"))
 {
     <div class="form-group">
         @Html.LabelFor(t => t.Title, new { @class = "text-white-50" })
@@ -27,8 +27,9 @@
         <p class="text-muted ">Orignal Deadline: @Model.EndDate.ToShortDateString() </p>
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.Completed, new { @class = "text-white-50" })
-        @Html.CheckBoxFor(t => t.Completed, new { @class = "checkbox-3" })
+        <p class="text-white-50">Mark As Completed? @Html.CheckBoxFor(t => t.Completed, new { @class = "form-conmtrol check-box" })</p>
     </div>
-        <button type="submit" class="btn btn-primary btn-block   ">Save</button>
+    @Html.HiddenFor(t => t.Id)
+    @Html.HiddenFor(t => t.UserId)
+    <button type="submit" class="btn btn-primary btn-block">Save</button>
 }

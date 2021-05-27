@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ToDoList.DTOs.TaskDto>
+@{
+    ViewData["Title"] = "Done";
+}
+@{
+    <h1 class="text-center text-white-50"> Ongoing Tasks</h1>
+    <section style="background-color: #343a40" class="basic-grid">
+        @foreach (var task in Model)
+        {
+            <div class="card-dark">
+                <div class="bs-component">
+                    <div class="card mb-3" style="background-color: #004953">
+                        <h3 class="card-header text-white-50">Task</h3>
+                        <div class="card-footer text-muted">
+                            Created On @task.CreatedDate.ToShortDateString()
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-white-50">@task.Title</h5>
+                            <h6 class="card-subtitle text-muted">Some extra shit</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-white-50">@task.Details.Details</p>
+                        </div>
+                        <ul style="background-color: #004953" class="list-group list-group-flush">
+                            <li style="background-color: #004953" class="list-group-item"><p class="font-italic text-white-50">Qualifers</p> <p class="font-weight-bold text-white-50">@task.Qualifiers.Qualifiers</p></li>
+                            <li style="background-color: #004953" class="list-group-item"><p class="font-italic text-white-50">Outcomes</p> <p class="font-weight-bold text-white-50">@task.Outcomes.Outcomes</p></li>
+                        </ul>
+                        <div class="card-body">
+                            @Html.ActionLink("Edit", "Edit", new { id = task.Id, @class = "btn-primary btn-sm text-white-50" }, null)
+                        </div>
+                        <div class="card-footer text-muted">
+                            Deadline @task.EndDate.ToShortDateString()
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </section>
+}

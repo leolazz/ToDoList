@@ -8,7 +8,7 @@ namespace ToDoList.DTOs
 {
     public class TaskDto
     {
-        public Guid AspNetUsersId { get; set; }
+        public string UserId { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public TaskDetailsDto Details { get; set; }
