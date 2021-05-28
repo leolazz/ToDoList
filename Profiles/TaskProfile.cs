@@ -20,7 +20,11 @@ namespace ToDoList.Profiles
                 opt => opt.MapFrom(src => src.Outcomes))
                 .ForMember(dest =>
                 dest.Qualifiers,
-                opt => opt.MapFrom(src => src.Qualifiers));
+                opt => opt.MapFrom(src => src.Qualifiers))
+                .ForMember(dest => dest.Completed,
+                opt => opt.MapFrom(src => src.Completed))
+                .ForMember(dest => dest.Id,
+                opt => opt.MapFrom(src => src.Id));
             CreateMap<TaskDto, Task>()
                 .ForMember(dest =>
                 dest.Details,
@@ -30,7 +34,12 @@ namespace ToDoList.Profiles
                 opt => opt.MapFrom(src => src.Outcomes))
                 .ForMember(dest =>
                 dest.Qualifiers,
-                opt => opt.MapFrom(src => src.Qualifiers));
+                opt => opt.MapFrom(src => src.Qualifiers))
+                .ForMember(dest => 
+                dest.Completed,
+                opt => opt.MapFrom(src => src.Completed))
+                .ForMember(dest => dest.Id,
+                opt => opt.MapFrom(src => src.Id));
         }
     }
 }
