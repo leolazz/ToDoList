@@ -85,15 +85,16 @@ namespace ToDoList.Controllers
         public ActionResult Search(string searchString)
         {
             // There might be a more efficient way of doing this. This could be an issue depending on the collation of the DB
-            var task = _context.Tasks
+            var tasks = _context.Tasks
                 .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Include(t => t.Qualifiers)
                 .Include(t => t.Outcomes)
                 .Include(t => t.Details)
                 .Where(x => EF.Functions.Like(x.Title, $"%{searchString}%"))
                 .ToList();
-            var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
-            return View("Results",  taskDto);
+            TasksViewModel viewModel = new TasksViewModel();
+            viewModel.taskDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
+            return View("Results",  viewModel);
         }
         public ActionResult Done()
         {
