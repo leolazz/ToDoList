@@ -32,10 +32,7 @@ namespace ToDoList.Controllers
         }
         public ActionResult New()
         {
-            var Task = new Task();
-
-            TaskDto taskDto = _mapper.Map<TaskDto>(Task);
-            
+           TaskDto taskDto = new TaskDto();
            return View("TaskForm", taskDto);
         }
         public ActionResult Edit(int id)
@@ -49,11 +46,9 @@ namespace ToDoList.Controllers
             
             return View("Edit", _mapper.Map<TaskDto>(task));
         }
-
         [HttpPost]
         public ActionResult Save(TaskDto taskDto)
         {
-            
             if (ModelState.IsValid)
             {
                 var task = _mapper.Map<Task>(taskDto);
@@ -107,6 +102,10 @@ namespace ToDoList.Controllers
                 .ToList();
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Done", taskDto);
+        }
+        public ActionResult Projects()
+        {
+            return View("Projects");
         }
     }
 }  

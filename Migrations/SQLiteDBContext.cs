@@ -11,6 +11,7 @@ namespace ToDoList.Data
     
         public class SQLiteDBContext : IdentityDbContext<ApplicationUser>
         {
+          //  public DbSet<Project> Projects { get; set; }
             public DbSet<Task> Tasks { get; set; }
             public DbSet<TaskDetails> Details { get; set; }
             public DbSet<TaskOutcomes> Outcomes { get; set; }
