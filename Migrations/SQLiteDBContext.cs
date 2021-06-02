@@ -17,6 +17,7 @@ namespace ToDoList.Data
             public DbSet<TaskOutcomes> Outcomes { get; set; }
             public DbSet<TaskQualifiers> Qualifiers { get; set; }
             public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+            public DbSet<Project> Projects { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options) 
                 => options.UseSqlite("Data Source=DB/sqlitetodolist.db");
             public SQLiteDBContext(DbContextOptions<SQLiteDBContext> options)

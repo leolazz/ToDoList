@@ -10,7 +10,7 @@ namespace ToDoList.ViewModels
     public class ProjectsViewModel
     {
         public ProjectDto Project { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<TaskDto> Tasks { get; set; }
         public string SelectedTasks { get; set; }
 
         public ProjectsViewModel()

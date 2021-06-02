@@ -34,17 +34,15 @@
 @section scripts {
 
     <script type="text/javascript">
-        $(document).ready(function () {
-
+          $(document).ready(function () {
             $('#Tasks').on('change', function () {
                 var selected = $(this).find("option:selected"); //get current selected value
                 var arrSelected = []; //Array to store your multiple value in stack
                 selected.each(function () {
                     arrSelected.push($(this).val()); //Stack the value
-                });
+            });
                 $('#SelectedTasks').val(arrSelected); //It will set the multiple selected value to input new_branch
             });
-
         });
     </script>
 

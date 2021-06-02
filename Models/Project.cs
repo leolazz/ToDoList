@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ToDoList.Models
 {
@@ -11,6 +10,7 @@ namespace ToDoList.Models
         [Required]
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public List<Task> Tasks { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

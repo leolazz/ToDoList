@@ -30,7 +30,15 @@ namespace ToDoList.Controllers
         }
         public ActionResult GetProjects()
         {
-            return View("Projects");
+            var Projects = _context.Projects.
+                Where(t => t.UserId == _userManager.GetUserId(User))
+                .Where(t => t.Completed == false)
+                .Include(t => t.Tasks)
+                .ToList();
+            var ProjectsDto = _mapper.Map<ProjectDto>(Projects);
+
+                
+            return View("Projects", ProjectsDto);
         }
         public ActionResult New()
         {
@@ -41,7 +49,7 @@ namespace ToDoList.Controllers
                 .Where(t => t.Completed == false)
                 .ToList();
 
-            ProjectViewModel.Tasks = Tasks;
+            ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(Tasks);
             return View("ProjectForm", ProjectViewModel);
         }
         public ActionResult Save(ProjectsViewModel ProjectViewModel)
