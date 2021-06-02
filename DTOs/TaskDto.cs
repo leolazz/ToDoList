@@ -11,6 +11,7 @@ namespace ToDoList.DTOs
         public string UserId { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
+        public Project Project { get; set; }
         public TaskDetailsDto Details { get; set; }
         public TaskOutcomesDto Outcomes { get; set; }
         public TaskQualifiersDto Qualifiers { get; set; }

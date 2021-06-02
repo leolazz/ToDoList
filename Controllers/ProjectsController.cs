@@ -49,15 +49,26 @@ namespace ToDoList.Controllers
             if (ModelState.IsValid)
             {
                 var ProjectVM = ProjectViewModel;
-                //if (task.Id == 0)
-                //{
-                //    task.CreatedDate = DateTime.Now;
-                //    task.UserId = _userManager.GetUserId(User);
-                //}
-                //_context.Update(task);
-                //_context.SaveChanges();
+                var Project = _mapper.Map<Project>(ProjectVM.Project);
+                if (Project.Id == 0)
+                {
+                    Project.CreatedDate = DateTime.Now;
+                    Project.UserId = _userManager.GetUserId(User);
+                }
+                
+                _context.Update(Project);
+
+                string[] ids = ProjectVM.SelectedTasks.Split(',');
+
+                foreach (var id in ids)
+                {
+                    var task = _context.Tasks.FirstOrDefault(t => t.Id == int.Parse(id));
+                    task.Project = Project;
+                    _context.Update(task);
+                }
+                _context.SaveChanges();
             }
-            return RedirectToAction("Projects", "Home");
+            return RedirectToAction("GetProjects", "Projects");
         }
     }
 }
