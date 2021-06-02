@@ -11,7 +11,7 @@ namespace ToDoList.ViewModels
     {
         public ProjectDto Project { get; set; }
         public List<Task> Tasks { get; set; }
-        public int[] SelectedTasks { get; set; }
+        public string[] SelectedTasks { get; set; }
 
         public ProjectsViewModel()
         {

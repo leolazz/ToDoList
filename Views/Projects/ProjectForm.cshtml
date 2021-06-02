@@ -22,8 +22,8 @@
                 }
             }
         </select>
-        <input type="text" name="SelectedTasks" id="SelectedTasks">
-        //@Html.HiddenFor(t => t.SelectedTasks, new { @name = "SelectedTasks", @id = "SelectedTasks" })
+        @*<input type="text" name="SelectedTasks" id="SelectedTasks">*@
+        @Html.HiddenFor(t => t.SelectedTasks, new { @name = "SelectedTasks", @id = "SelectedTasks" })
     </div>
     <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
 
@@ -32,17 +32,15 @@
 
     <script type="text/javascript">
           $(document).ready(function () {
-
             $('#Tasks').on('change', function () {
                 var selected = $(this).find("option:selected"); //get current selected value
                 var arrSelected = []; //Array to store your multiple value in stack
                 selected.each(function () {
                     arrSelected.push($(this).val()); //Stack the value
-            });
+                });
                 $('#SelectedTasks').val(arrSelected); //It will set the multiple selected value to input new_branch
             });
-
-        //});
+        });
     </script>
 
 }
