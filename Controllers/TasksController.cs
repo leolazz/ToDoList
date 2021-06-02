@@ -60,7 +60,7 @@ namespace ToDoList.Controllers
                 _context.Update(task);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Doing", "Home");
         }
         public ActionResult GetTasks()
         {

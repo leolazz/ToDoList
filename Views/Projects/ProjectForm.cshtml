@@ -1,32 +1,70 @@
-﻿@model ToDoList.DTOs.ProjectDto
+﻿@model ToDoList.ViewModels.ProjectsViewModel
 @{
     ViewData["Title"] = "New Project";
 }
 
-@using (Html.BeginForm("Save", "Project"))
+@using (Html.BeginForm("Save", "Projects"))
 {
     <div class="form-group">
-        @Html.LabelFor(t => t.Title, new { @class = "text-white-50" })
-        @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder = "Enter the name of your Project" })
+        @Html.LabelFor(t => t.Project.Title, new { @class = "text-white-50" })
+        @Html.TextBoxFor(t => t.Project.Title, new { @class = "form-control", placeholder = "Enter the name of your Project" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.Description, new { @class = "text-white-50" })
-        @Html.TextAreaFor(t => t.Description, new { @class = "form-control", rows = "5", cols = "50", placeholder = "Describe your Project" })
-    </div>
-
-    
-    @*<div class="form-group">
-        @Html.
-        @Html.LabelFor(t => t.Tasks, new { @class = "text-white-50" })
-        @Html.ListBoxFor(t => t.Tasks, new SelectList(), new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define the Qualifers for this Task" })
-    </div>*@
-    @*<div class="form-group">
-        @Html.LabelFor(t => t.Outcomes.Outcomes, new { @class = "text-white-50" })
-        @Html.TextAreaFor(t => t.Outcomes.Outcomes, new { @class = "form-control", rows = "1", cols = "20", placeholder = "Define an Outcome of this Task" })
+        @Html.LabelFor(t => t.Project.Description, new { @class = "text-white-50" })
+        @Html.TextAreaFor(t => t.Project.Description, new { @class = "form-control", rows = "5", cols = "50", placeholder = "Describe your Project" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => t.EndDate, new { @class = "text-white-50" })
-        @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToString("yyyy-MM-dd") })
-    </div>*@
+        <select id="Tasks" class="dropdown selectpicker show-tick col-12" title="Select Tasks To Add" multiple data-actions-box="true" data-style="btn btn-primary btn-lg btn-block">
+            @{
+                foreach (var Task in Model.Tasks)
+                {
+                    <option data-subtext=" Deadline: @Task.EndDate.ToShortDateString()" value="@Task.Id">@Task.Title</option>
+                }
+            }
+        </select>
+        <input type="text" name="SelectedTasks" id="SelectedTasks">
+        //@Html.HiddenFor(t => t.SelectedTasks, new { @name = "SelectedTasks", @id = "SelectedTasks" })
+    </div>
     <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+
 }
+@section scripts {
+
+    <script type="text/javascript">
+          $(document).ready(function () {
+
+            $('#Tasks').on('change', function () {
+                var selected = $(this).find("option:selected"); //get current selected value
+                var arrSelected = []; //Array to store your multiple value in stack
+                selected.each(function () {
+                    arrSelected.push($(this).val()); //Stack the value
+            });
+                $('#SelectedTasks').val(arrSelected); //It will set the multiple selected value to input new_branch
+            });
+
+        //});
+    </script>
+
+}
+
+@*<script>
+            $('#Tasks').multiselect({
+                // ...
+                onChange: function () {
+                    var selected = this.$select.val();
+                    // ...
+                }
+            });
+        //$(document).ready(function () {
+
+        //    $('#Tasks').on('change', function () {
+        //        var selected = $(this).find("option:selected"); //get current selected value
+        //        var arrSelected = []; //Array to store your multiple value in stack
+        //        selected.each(function () {
+        //            arrSelected.push($(this).val()); //Stack the value
+        //        });
+        //        $('#SelectedTasks').val(arrSelected); //It will set the multiple selected value to input new_branch
+        //    });
+
+        //});
+    </script>*@
