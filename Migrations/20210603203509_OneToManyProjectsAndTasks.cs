@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ToDoList.Migrations
 {
-    public partial class ProjectTaskOneToManyAdded : Migration
+    public partial class OneToManyProjectsAndTasks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,13 +13,20 @@ namespace ToDoList.Migrations
                 type: "INTEGER",
                 nullable: true);
 
+            migrationBuilder.AddColumn<int>(
+                name: "ProjectRefId",
+                table: "Tasks",
+                type: "INTEGER",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.CreateTable(
-                name: "Project",
+                name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -28,9 +35,9 @@ namespace ToDoList.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project", x => x.Id);
+                    table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Project_AspNetUsers_UserId",
+                        name: "FK_Projects_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -43,15 +50,15 @@ namespace ToDoList.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Project_UserId",
-                table: "Project",
+                name: "IX_Projects_UserId",
+                table: "Projects",
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Tasks_Project_ProjectId",
+                name: "FK_Tasks_Projects_ProjectId",
                 table: "Tasks",
                 column: "ProjectId",
-                principalTable: "Project",
+                principalTable: "Projects",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -59,11 +66,11 @@ namespace ToDoList.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tasks_Project_ProjectId",
+                name: "FK_Tasks_Projects_ProjectId",
                 table: "Tasks");
 
             migrationBuilder.DropTable(
-                name: "Project");
+                name: "Projects");
 
             migrationBuilder.DropIndex(
                 name: "IX_Tasks_ProjectId",
@@ -71,6 +78,10 @@ namespace ToDoList.Migrations
 
             migrationBuilder.DropColumn(
                 name: "ProjectId",
+                table: "Tasks");
+
+            migrationBuilder.DropColumn(
+                name: "ProjectRefId",
                 table: "Tasks");
         }
     }

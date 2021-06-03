@@ -30,15 +30,32 @@ namespace ToDoList.Controllers
         }
         public ActionResult GetProjects()
         {
+            if (_userManager.GetUserId(User) == null)
+            {
+               return Redirect("/Identity/Account/Login");
+            }
             var Projects = _context.Projects.
                 Where(t => t.UserId == _userManager.GetUserId(User))
                 .Where(t => t.Completed == false)
                 .Include(t => t.Tasks)
                 .ToList();
-            var ProjectsDto = _mapper.Map<ProjectDto>(Projects);
+            var ProjectsDto = _mapper.Map<List<ProjectDto>>(Projects);
 
                 
             return View("Projects", ProjectsDto);
+        }
+        public ActionResult Edit(int id)
+        {
+            var ProjectViewModel = new ProjectsViewModel();
+
+            var Tasks = _context.Tasks
+                .Where(t => t.UserId == _userManager.GetUserId(User))
+                .Where(t => t.Completed == false)
+                .Where(t => t.Project == null)
+                .ToList();
+
+            ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(Tasks);
+            return View("ProjectForm", ProjectViewModel);
         }
         public ActionResult New()
         {
@@ -47,6 +64,7 @@ namespace ToDoList.Controllers
             var Tasks = _context.Tasks
                 .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Where(t => t.Completed == false)
+                .Where(t => t.Project == null)
                 .ToList();
 
             ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(Tasks);

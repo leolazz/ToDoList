@@ -9,8 +9,8 @@ using ToDoList.Data;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(SQLiteDBContext))]
-    [Migration("20210602214507_Project&TaskOneToManyAdded")]
-    partial class ProjectTaskOneToManyAdded
+    [Migration("20210603203509_OneToManyProjectsAndTasks")]
+    partial class OneToManyProjectsAndTasks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -239,7 +239,7 @@ namespace ToDoList.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("ToDoList.Models.Task", b =>
@@ -264,6 +264,9 @@ namespace ToDoList.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProjectRefId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("QualifiersId")
@@ -405,7 +408,7 @@ namespace ToDoList.Migrations
                         .HasForeignKey("OutcomesId");
 
                     b.HasOne("ToDoList.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("Tasks")
                         .HasForeignKey("ProjectId");
 
                     b.HasOne("ToDoList.Models.TaskQualifiers", "Qualifiers")
@@ -425,6 +428,11 @@ namespace ToDoList.Migrations
                     b.Navigation("Qualifiers");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ToDoList.Models.Project", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }
