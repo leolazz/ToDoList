@@ -90,20 +90,16 @@ namespace ToDoList.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ProjectVM = ProjectViewModel;
                 var Project = _mapper.Map<Project>(ProjectViewModel.Project);
                 if (Project.Id == 0)
                 {
                     Project.CreatedDate = DateTime.Now;
                     Project.UserId = _userManager.GetUserId(User);
-                }else
-                {
-
                 }
                 
                 _context.Update(Project);
 
-                string[] ids = ProjectVM.SelectedTasks.Split(',');
+                string[] ids = ProjectViewModel.SelectedTasks.Split(',');
 
                 foreach (var id in ids)
                 {
