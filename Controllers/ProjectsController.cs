@@ -34,15 +34,17 @@ namespace ToDoList.Controllers
             {
                return Redirect("/Identity/Account/Login");
             }
-            var Projects = _context.Projects
+            ProjectsViewModel ProjectVM = new ProjectsViewModel();
+                var projects = _context.Projects
                 .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Where(t => t.Completed == false)
                 .Include(t => t.Tasks)
                 .ToList();
-            var ProjectsDto = _mapper.Map<List<ProjectDto>>(Projects);
+
+            ProjectVM.ProjectList = _mapper.Map<List<ProjectDto>>(projects);
 
                 
-            return View("Projects", ProjectsDto);
+            return View("Projects", ProjectVM);
         }
         public ActionResult Edit(int id)
         {
