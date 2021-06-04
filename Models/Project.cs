@@ -20,5 +20,9 @@ namespace ToDoList.Models
         [Display(Name = "Task Status")]
         public bool Completed { get; set; }
 
+        //var Tasks = _context.Tasks
+        //        .Where(t => t.Project.Id == id);
+
+        //    ProjectViewModel.Project.Tasks = _mapper.Map<List<TaskDto>>(Tasks);
     }
 }

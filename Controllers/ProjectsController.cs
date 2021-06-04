@@ -34,8 +34,8 @@ namespace ToDoList.Controllers
             {
                return Redirect("/Identity/Account/Login");
             }
-            var Projects = _context.Projects.
-                Where(t => t.UserId == _userManager.GetUserId(User))
+            var Projects = _context.Projects
+                .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Where(t => t.Completed == false)
                 .Include(t => t.Tasks)
                 .ToList();
@@ -48,14 +48,30 @@ namespace ToDoList.Controllers
         {
             var ProjectViewModel = new ProjectsViewModel();
 
-            var Tasks = _context.Tasks
+            var Project = _context.Projects
+                .Where(t => t.UserId == _userManager.GetUserId(User))
+                .Where(t => t.Completed == false)
+                .SingleOrDefault(t => t.Id == id);
+
+            var ProjectTasks = _context.Tasks
+                .Where(t => t.Project == Project)
+                .Include(t => t.Qualifiers)
+                .Include(t => t.Outcomes)
+                .Include(t => t.Details)
+                .ToList();
+
+            var OrphanedTasks = _context.Tasks
                 .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Where(t => t.Completed == false)
                 .Where(t => t.Project == null)
                 .ToList();
 
-            ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(Tasks);
-            return View("ProjectForm", ProjectViewModel);
+
+            ProjectViewModel.Project = _mapper.Map<ProjectDto>(Project);
+            ProjectViewModel.Project.Tasks = _mapper.Map<List<TaskDto>>(ProjectTasks);
+            ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(OrphanedTasks);
+
+            return View("Edit", ProjectViewModel);
         }
         public ActionResult New()
         {
@@ -75,11 +91,14 @@ namespace ToDoList.Controllers
             if (ModelState.IsValid)
             {
                 var ProjectVM = ProjectViewModel;
-                var Project = _mapper.Map<Project>(ProjectVM.Project);
+                var Project = _mapper.Map<Project>(ProjectViewModel.Project);
                 if (Project.Id == 0)
                 {
                     Project.CreatedDate = DateTime.Now;
                     Project.UserId = _userManager.GetUserId(User);
+                }else
+                {
+
                 }
                 
                 _context.Update(Project);
@@ -92,9 +111,10 @@ namespace ToDoList.Controllers
                     task.Project = Project;
                     _context.Update(task);
                 }
-                _context.SaveChanges();
+                _context.SaveChanges(); 
+                return RedirectToAction("GetProjects", "Projects");
             }
-            return RedirectToAction("GetProjects", "Projects");
+            return RedirectToAction("Edit", "Projects");
         }
     }
 }
