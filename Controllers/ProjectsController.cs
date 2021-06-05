@@ -101,18 +101,39 @@ namespace ToDoList.Controllers
                 
                 _context.Update(Project);
 
-                string[] ids = ProjectViewModel.SelectedTasks.Split(',');
-
-                foreach (var id in ids)
+                if (!string.IsNullOrEmpty(ProjectViewModel.SelectedTasks))
                 {
-                    var task = _context.Tasks.FirstOrDefault(t => t.Id == int.Parse(id));
-                    task.Project = Project;
-                    _context.Update(task);
+                    string[] ids = ProjectViewModel.SelectedTasks.Split(',');
+
+                    foreach (var id in ids)
+                    {
+                        var task = _context.Tasks.FirstOrDefault(t => t.Id == int.Parse(id));
+                        task.Project = Project;
+                        _context.Update(task);
+                    }
                 }
                 _context.SaveChanges(); 
                 return RedirectToAction("GetProjects", "Projects");
             }
             return RedirectToAction("Edit", "Projects");
+        }
+        public ActionResult Done()
+        {
+
+            if (_userManager.GetUserId(User) == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            ProjectsViewModel ProjectVM = new ProjectsViewModel();
+            var projects = _context.Projects
+            .Where(t => t.UserId == _userManager.GetUserId(User))
+            .Where(t => t.Completed == true)
+            .Include(t => t.Tasks)
+            .ToList();
+
+            ProjectVM.ProjectList = _mapper.Map<List<ProjectDto>>(projects);
+
+            return View("Done", ProjectVM);
         }
     }
 }

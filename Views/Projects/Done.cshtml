@@ -1,0 +1,57 @@
+﻿@model ToDoList.ViewModels.ProjectsViewModel
+@{
+    ViewData["Title"] = "Done";
+}
+<h1 class="text-center text-white-50">Completed Projects</h1>
+@{
+    <section style="background-color: #343a40" class="basic-grid">
+        @foreach (var project in Model.ProjectList)
+        {
+            <section style="background-color: #343a40" class="basic-grid">
+                <div class="list-group">
+                    <h3 class="card-header text-white-50">@Html.ActionLink("Edit", "Edit", new { id = project.Id, @class = "btn-primary btn-sm text-white-50" }, null)</h3>
+                    <a href="#" class="list-group-item-Midnight list-group-item-action-dark flex-column align-items-start active">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 text-white-50">@project.Title</h5>
+                            <small>@project.CreatedDate.ToShortDateString()</small>
+                        </div>
+                        <p class="mb-1 text-white-50">@project.Description</p>
+                        <small>Goals?.</small>
+                    </a>
+                    <div class="bs-component">
+                        <ul class="list-group">
+                            @{ foreach (var task in project.Tasks)
+                                {
+                                    TimeSpan eta = task.EndDate - DateTime.Now;
+                                    string color;
+                                    string PastOrRemaing;
+
+                                    if (task.EndDate < DateTime.Now)
+                                        PastOrRemaing = "Past Deadline";
+                                    else
+                                        PastOrRemaing = "Remaing";
+                                    if (eta.Days <= 7)
+                                    {
+                                        if (eta.Days < 0)
+                                        {
+                                            color = Model.Colors[0];
+                                        }
+                                        else
+                                            color = Model.Colors[eta.Days];
+                                    }
+                                    else color = "#004953";
+
+                                    <li class="list-group-item-Midnight d-flex justify-content-between align-items-center text-white-50" style="background-color:@color">
+                                        @task.Title
+                                        <span class="badge bg-primary rounded-pill">@task.EndDate.ToShortDateString()</span>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        }
+    </section>
+
+}

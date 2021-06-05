@@ -103,9 +103,5 @@ namespace ToDoList.Controllers
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Done", taskDto);
         }
-        public ActionResult Projects()
-        {
-            return View("Projects");
-        }
     }
 }  

@@ -1,6 +1,6 @@
 ﻿@model ToDoList.ViewModels.ProjectsViewModel
 @{
-    ViewData["Title"] = "New Project";
+    ViewData["Title"] = "Edit Project";
 }
 
 @using (Html.BeginForm("Save", "Projects"))
@@ -80,8 +80,9 @@
     <div class="form-group">
         @Html.LabelFor(t => t.Project.EndDate, new { @class = "text-white-50" })
         @Html.TextBoxFor(t => t.Project.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.Project.EndDate.ToString("yyyy-MM-dd") })
-        @Html.HiddenFor(t => t.SelectedTasks, new { @name = "SelectedTasks", @id = "SelectedTasks" })
         <p class="text-muted ">Orignal Deadline: @Model.Project.EndDate.ToShortDateString() </p>
+        <p class="text-white-50">Mark As Completed? @Html.CheckBoxFor(t => t.Project.Completed, new { @class = "form-conmtrol check-box" })</p>
+        @Html.HiddenFor(t => t.SelectedTasks, new { @name = "SelectedTasks", @id = "SelectedTasks" })
         @Html.HiddenFor(t => t.Project.Id)
         @Html.HiddenFor(t => t.Project.UserId)
         @Html.HiddenFor(t => t.Project.CreatedDate)
