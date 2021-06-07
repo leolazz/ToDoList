@@ -77,6 +77,10 @@ namespace ToDoList.Controllers
         }
         public ActionResult New()
         {
+            if (_userManager.GetUserId(User) == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var ProjectViewModel = new ProjectsViewModel();
 
             var Tasks = _context.Tasks
@@ -93,6 +97,8 @@ namespace ToDoList.Controllers
             if (ModelState.IsValid)
             {
                 var Project = _mapper.Map<Project>(ProjectViewModel.Project);
+
+
                 if (Project.Id == 0)
                 {
                     Project.CreatedDate = DateTime.Now;
@@ -100,7 +106,7 @@ namespace ToDoList.Controllers
                 }
                 
                 _context.Update(Project);
-
+                
                 if (!string.IsNullOrEmpty(ProjectViewModel.SelectedTasks))
                 {
                     string[] ids = ProjectViewModel.SelectedTasks.Split(',');
@@ -111,6 +117,14 @@ namespace ToDoList.Controllers
                         task.Project = Project;
                         _context.Update(task);
                     }
+                } if (Project.Completed)
+                {
+                    var tasks = _context.Tasks.Where(t => t.Project == Project).ToList();
+                    foreach (var task in tasks)
+                    {
+                        task.Completed = true;
+                        _context.Update(task);
+                    }
                 }
                 _context.SaveChanges(); 
                 return RedirectToAction("GetProjects", "Projects");
@@ -119,7 +133,10 @@ namespace ToDoList.Controllers
         }
         public ActionResult Done()
         {
-
+            if (_userManager.GetUserId(User) == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             if (_userManager.GetUserId(User) == null)
             {
                 return Redirect("/Identity/Account/Login");

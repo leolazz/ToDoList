@@ -75,7 +75,6 @@
                 }
             }
         </select>
-        
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.Project.EndDate, new { @class = "text-white-50" })
@@ -88,10 +87,8 @@
         @Html.HiddenFor(t => t.Project.CreatedDate)
     </div>
     <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
-
 }
 @section scripts {
-
     <script type="text/javascript">
         $(document).ready(function () {
             $('#Tasks').on('change', function () {
@@ -104,5 +101,4 @@
             });
         });
     </script>
-
 }
