@@ -137,10 +137,6 @@ namespace ToDoList.Controllers
             {
                 return Redirect("/Identity/Account/Login");
             }
-            if (_userManager.GetUserId(User) == null)
-            {
-                return Redirect("/Identity/Account/Login");
-            }
             ProjectsViewModel ProjectVM = new ProjectsViewModel();
             var projects = _context.Projects
             .Where(t => t.UserId == _userManager.GetUserId(User))
@@ -151,6 +147,20 @@ namespace ToDoList.Controllers
             ProjectVM.ProjectList = _mapper.Map<List<ProjectDto>>(projects);
 
             return View("Done", ProjectVM);
+        }
+        public ActionResult Delete(int id)
+        {
+            var project = _context.Projects.FirstOrDefault(t => t.Id == id);
+                _context.Remove(project);
+            
+            var tasks = _context.Tasks.Where(t => t.Project == project).ToList();
+            foreach (var task in tasks)
+            {
+                _context.Remove(task);
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction("GetProjects");
         }
     }
 }
