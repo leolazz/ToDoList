@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Edit Project";
 }
-@Html.ActionLink("DELETE", "Delete", new { id =  Model.Project.Id, @class = "btn-primary btn-sm text-white-50" }, null)
+<h3 class="card-header text-danger">@Html.ActionLink("DELETE", "Delete", new { id = Model.Project.Id, @class = "btn-primary btn-sm text-danger" }, null)</h3>
 @using (Html.BeginForm("Save", "Projects"))
 {
     <div class="form-group">

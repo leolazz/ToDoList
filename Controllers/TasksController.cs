@@ -103,5 +103,12 @@ namespace ToDoList.Controllers
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Done", taskDto);
         }
+        public ActionResult Delete(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+                _context.Remove(task);
+            _context.SaveChanges();
+            return RedirectToAction("GetTasks");
+        }
     }
 }  
