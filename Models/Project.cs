@@ -17,7 +17,7 @@ namespace ToDoList.Models
         public DateTime CreatedDate { get; set; }
         [Display(Name = "Deadline")]
         public DateTime EndDate { get; set; }
-        [Display(Name = "Task Status")]
+        [Display(Name = "Project Status")]
         public bool Completed { get; set; }
 
         //var Tasks = _context.Tasks

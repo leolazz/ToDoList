@@ -25,12 +25,6 @@
                                 {
                                     TimeSpan eta = task.EndDate - DateTime.Now;
                                     string color;
-                                    string PastOrRemaing;
-
-                                    if (task.EndDate < DateTime.Now)
-                                        PastOrRemaing = "Past Deadline";
-                                    else
-                                        PastOrRemaing = "Remaing";
                                     if (eta.Days <= 7)
                                     {
                                         if (eta.Days < 0)
