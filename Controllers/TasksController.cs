@@ -71,7 +71,7 @@ namespace ToDoList.Controllers
                 .Include(t => t.Outcomes)
                 .Include(t => t.Details)
                 .ToList();
-            TasksViewModel viewModel = new TasksViewModel();
+            var viewModel = new TasksViewModel();
             
             viewModel.taskDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
             return View("Doing", viewModel);

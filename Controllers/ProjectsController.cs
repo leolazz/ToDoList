@@ -34,7 +34,7 @@ namespace ToDoList.Controllers
             {
                return Redirect("/Identity/Account/Login");
             }
-            ProjectsViewModel ProjectVM = new ProjectsViewModel();
+                var ProjectVM = new ProjectsViewModel();
                 var projects = _context.Projects
                 .Where(t => t.UserId == _userManager.GetUserId(User))
                 .Where(t => t.Completed == false)
