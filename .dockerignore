@@ -1,4 +1,4 @@
-.\obj
-.\DB\sqlitetodolist.db
-.\DB\sqlitetodolist.db-wal
-.\DB\sqlitetodolist.db-shm
+./obj
+./DB/sqlitetodolist.db
+./DB/sqlitetodolist.db-wal
+./DB/sqlitetodolist.db-shm

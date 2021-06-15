@@ -19,7 +19,7 @@ spec:
         - name: tobedone
           image: leolazz/2bdone:latest
           ports:
-              - containerPort: 80 
+              - containerPort: 80
           env:
             - name: PUID
               value: "1000"
@@ -35,7 +35,7 @@ spec:
           volumeMounts:
           - mountPath: /ToDoList/data/
             name: tobedone-data
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
       volumes:
       - name: tobedone-data
         persistentVolumeClaim:
@@ -51,6 +51,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
       storage: 2Gi
@@ -77,14 +78,14 @@ metadata:
     app: tobedone
   annotations:
     kubernetes.io/ingress.class: "traefik"
-    # traefik.ingress.kubernetes.io/redirect-entry-point: https
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
-  # tls:
-  #   - secretName: internal-acme-crt-secret
-  #     hosts:
-  #       - '*.internal.lazz.tech'
+  tls:
+    - secretName: internal-acme-crt-secret
+      hosts:
+        - '*.internal.lazz.tech'
   rules:
-  - host: tobedone.test.com  
+  - host: tobedone.internal.lazz.tech
     http:
       paths:
       - backend:
