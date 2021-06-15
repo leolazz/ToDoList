@@ -1,5 +1,5 @@
 ﻿@{
-    <div class="bs-component">
+    <div class="basic-inline">
         <nav style="background-color: #004953" class="navbar navbar-dark navbar-expand-lg bg-Midnight">
             <a class="text-nowrap navbar-brand-lg text-white-50 " href="@Url.Action("Index", "Home")">²BᵉDᵒⁿᵉ</a>
             <div class="text-nowrap basic-grid"><a class="nav-item btn-primary text-lg-center btn-sm " href="@Url.Action("New", "Tasks")">New Task</a></div>
@@ -8,12 +8,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link text-white-50" href="@Url.Action("Index", "Home")">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                        <div class="dropdown-menu bg-dark">
+                            <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Projects/GetProjects")">Doing</a>
+                            <div class="dropdown-divider-dark"></div>
+                            <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Projects/Done")">Done</a>
+                            <div class="dropdown-divider-dark"></div>
+                            <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Projects/New")">New Project</a>
+                        </div>
                     <li class="nav-item">
                         <a class="nav-link text-white-50" href="@Url.Action("GetTasks", "Tasks")">Doing</a>
                     </li>
@@ -28,7 +31,7 @@
                             account = User.Identity.Name;
                     }
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@account</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@account</a>
                         <div class="dropdown-menu bg-dark">
                             <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Identity/Account/Manage")">Settings</a>
                             <div class="dropdown-divider-dark"></div>
@@ -36,7 +39,6 @@
                         </div>
                     </li>
                 </ul>
-
                 <form asp-controller="Tasks" asp-action="Search" class="form-inline my-2 my-lg-0 my-auto">
                     <input class="form-control mr-sm-2 " type="text" name="SearchString" placeholder="Search">
                     <button class="btn btn-secondary btn-sm my-2 my-sm-0 text-white-50" type="submit">Search</button>

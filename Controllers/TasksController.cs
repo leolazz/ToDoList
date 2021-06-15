@@ -32,10 +32,7 @@ namespace ToDoList.Controllers
         }
         public ActionResult New()
         {
-            var Task = new Task();
-
-            TaskDto taskDto = _mapper.Map<TaskDto>(Task);
-            
+           TaskDto taskDto = new TaskDto();
            return View("TaskForm", taskDto);
         }
         public ActionResult Edit(int id)
@@ -49,11 +46,9 @@ namespace ToDoList.Controllers
             
             return View("Edit", _mapper.Map<TaskDto>(task));
         }
-
         [HttpPost]
         public ActionResult Save(TaskDto taskDto)
         {
-            
             if (ModelState.IsValid)
             {
                 var task = _mapper.Map<Task>(taskDto);
@@ -65,7 +60,7 @@ namespace ToDoList.Controllers
                 _context.Update(task);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GetTasks", "Tasks");
         }
         public ActionResult GetTasks()
         {
@@ -76,7 +71,7 @@ namespace ToDoList.Controllers
                 .Include(t => t.Outcomes)
                 .Include(t => t.Details)
                 .ToList();
-            TasksViewModel viewModel = new TasksViewModel();
+            var viewModel = new TasksViewModel();
             
             viewModel.taskDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
             return View("Doing", viewModel);
@@ -107,6 +102,13 @@ namespace ToDoList.Controllers
                 .ToList();
             var taskDto = _mapper.Map<IEnumerable<TaskDto>>(task);
             return View("Done", taskDto);
+        }
+        public ActionResult Delete(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.Id == id);
+                _context.Remove(task);
+            _context.SaveChanges();
+            return RedirectToAction("GetTasks");
         }
     }
 }  

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoList.Models;
 
 namespace ToDoList.DTOs
 {
@@ -11,6 +12,7 @@ namespace ToDoList.DTOs
         public string UserId { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
+        public Project Project { get; set; }
         public TaskDetailsDto Details { get; set; }
         public TaskOutcomesDto Outcomes { get; set; }
         public TaskQualifiersDto Qualifiers { get; set; }

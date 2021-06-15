@@ -16,7 +16,7 @@ namespace ToDoList.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.6");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -208,6 +208,38 @@ namespace ToDoList.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("ToDoList.Models.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Completed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Projects");
+                });
+
             modelBuilder.Entity("ToDoList.Models.Task", b =>
                 {
                     b.Property<int>("Id")
@@ -229,6 +261,9 @@ namespace ToDoList.Migrations
                     b.Property<int?>("OutcomesId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("QualifiersId")
                         .HasColumnType("INTEGER");
 
@@ -243,6 +278,8 @@ namespace ToDoList.Migrations
                     b.HasIndex("DetailsId");
 
                     b.HasIndex("OutcomesId");
+
+                    b.HasIndex("ProjectId");
 
                     b.HasIndex("QualifiersId");
 
@@ -344,6 +381,17 @@ namespace ToDoList.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ToDoList.Models.Project", b =>
+                {
+                    b.HasOne("ToDoList.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ToDoList.Models.Task", b =>
                 {
                     b.HasOne("ToDoList.Models.TaskDetails", "Details")
@@ -353,6 +401,10 @@ namespace ToDoList.Migrations
                     b.HasOne("ToDoList.Models.TaskOutcomes", "Outcomes")
                         .WithMany()
                         .HasForeignKey("OutcomesId");
+
+                    b.HasOne("ToDoList.Models.Project", "Project")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("ToDoList.Models.TaskQualifiers", "Qualifiers")
                         .WithMany()
@@ -366,9 +418,16 @@ namespace ToDoList.Migrations
 
                     b.Navigation("Outcomes");
 
+                    b.Navigation("Project");
+
                     b.Navigation("Qualifiers");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ToDoList.Models.Project", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

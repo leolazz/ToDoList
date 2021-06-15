@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Edit Task";
 }
-
+<h3 class="card-header text-danger">@Html.ActionLink("DELETE", "Delete", new { id = Model.Id, @class = "btn-primary btn-sm text-danger" }, null)</h3>
 @using (Html.BeginForm("Save", "Tasks"))
 {
     <div class="form-group">

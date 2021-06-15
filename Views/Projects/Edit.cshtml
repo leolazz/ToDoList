@@ -1,0 +1,104 @@
+﻿@model ToDoList.ViewModels.ProjectsViewModel
+@{
+    ViewData["Title"] = "Edit Project";
+}
+<h3 class="card-header text-danger">@Html.ActionLink("DELETE", "Delete", new { id = Model.Project.Id, @class = "btn-primary btn-sm text-danger" }, null)</h3>
+@using (Html.BeginForm("Save", "Projects"))
+{
+    <div class="form-group">
+        @Html.LabelFor(t => t.Project.Title, new { @class = "text-white-50" })
+        @Html.TextBoxFor(t => t.Project.Title, new { @class = "form-control", placeholder = "Enter the name of your Project" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Project.Description, new { @class = "text-white-50" })
+        @Html.TextAreaFor(t => t.Project.Description, new { @class = "form-control", rows = "5", cols = "50", placeholder = "Describe your Project" })
+    </div>
+    <section style="background-color: #343a40" class="basic-grid">
+        @*This could be refactored into a method on the VM*@
+        @foreach (var task in Model.Project.Tasks)
+        {
+            TimeSpan eta = task.EndDate - DateTime.Now;
+            string color;
+            string PastOrRemaing;
+
+            if (task.EndDate < DateTime.Now)
+                PastOrRemaing = "Past Deadline";
+            else
+                PastOrRemaing = "Remaing";
+            if (eta.Days <= 7)
+            {
+                if (eta.Days < 0)
+                {
+                    color = Model.Colors[0];
+                }
+                else
+                    color = Model.Colors[eta.Days];
+            }
+            else color = "#004953";
+            <div class="card-dark">
+                <div class="bs-component">
+                    <div class="card mb-3" style="background-color: #004953">
+                        <h3 class="card-header text-white-50" style="background-color:@color">@Html.ActionLink("Edit", "Edit", "Tasks", new { id = task.Id, @class = "btn-primary btn-sm text-white-50" }, null)</h3>
+                        <div class="card-footer text-muted">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-white">@task.Title</h5>
+                            <h6 class="card-subtitle text-muted">Some extra shit</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-white-50">@task.Details.Details</p>
+                        </div>
+                        <ul style="background-color: #004953" class="list-group list-group-flush">
+                            <li style="background-color: #004953" class="list-group-item"><p class="font-italic text-white-50">Qualifers</p> <p class="font-weight-bold text-white-50">@task.Qualifiers.Qualifiers</p></li>
+                            <li style="background-color: #004953" class="list-group-item"><p class="font-italic text-white-50">Outcomes</p> <p class="font-weight-bold text-white-50">@task.Outcomes.Outcomes</p></li>
+                        </ul>
+                        <div class="card-footer text-muted font-italic">
+                            Deadline: @task.EndDate.ToShortDateString()
+                        </div>
+                        <div class="card-footer text-muted font-italic">
+                            Days @PastOrRemaing: @eta.ToString("%d")
+                        </div>
+                        <div class="card-footer text-muted">
+                            Created On @task.CreatedDate.ToShortDateString()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+    <div class="form-group">
+        <select id="Tasks" class="dropdown selectpicker show-tick col-12" title="Select Tasks To Add" multiple data-actions-box="true" data-style="btn btn-primary btn-lg btn-block">
+            @{
+                foreach (var Task in Model.Tasks)
+                {
+                    <option data-subtext=" Deadline: @Task.EndDate.ToShortDateString()" value="@Task.Id">@Task.Title</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Project.EndDate, new { @class = "text-white-50" })
+        @Html.TextBoxFor(t => t.Project.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.Project.EndDate.ToString("yyyy-MM-dd") })
+        <p class="text-muted ">Orignal Deadline: @Model.Project.EndDate.ToShortDateString() </p>
+        <p class="text-white-50">Mark As Completed? @Html.CheckBoxFor(t => t.Project.Completed, new { @class = "form-conmtrol check-box" })</p>
+        @Html.HiddenFor(t => t.SelectedTasks, new { @name = "SelectedTasks", @id = "SelectedTasks" })
+        @Html.HiddenFor(t => t.Project.Id)
+        @Html.HiddenFor(t => t.Project.UserId)
+        @Html.HiddenFor(t => t.Project.CreatedDate)
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+}
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Tasks').on('change', function () {
+                var selected = $(this).find("option:selected"); //get current selected value
+                var arrSelected = []; //Array to store your multiple value in stack
+                selected.each(function () {
+                    arrSelected.push($(this).val()); //Stack the value
+                });
+                $('#SelectedTasks').val(arrSelected); //It will set the multiple selected value to input new_branch
+            });
+        });
+    </script>
+}
