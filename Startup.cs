@@ -24,6 +24,7 @@ namespace ToDoList
         }
 
         public IConfiguration Configuration { get; }
+        public Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -42,10 +43,19 @@ namespace ToDoList
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
-                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    if (HostingEnvironment.IsDevelopment())
+                    {
+                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    }
+                    else
+                    {
+                        //https://docs.microsoft.com/en-us/dotnet/api/system.environment.getenvironmentvariable?view=net-5.0#definition
+                        facebookOptions.AppId = Environment.GetEnvironmentVariable("Facebook_AppId");
+                        facebookOptions.AppSecret = Environment.GetEnvironmentVariable("Facebook_AppSecret");
+                    }
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
-                }); 
+                });
             services.AddControllersWithViews();
         }
 
