@@ -24,10 +24,9 @@ namespace ToDoList
         }
 
         public IConfiguration Configuration { get; }
-        public Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<SQLiteDBContext>(options =>
@@ -43,7 +42,7 @@ namespace ToDoList
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
-                    if (HostingEnvironment.IsDevelopment())
+                    if (env.IsDevelopment())
                     {
                         facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                         facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
