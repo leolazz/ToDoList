@@ -51,8 +51,8 @@ namespace ToDoList
                     else
                     {
                         //https://docs.microsoft.com/en-us/dotnet/api/system.environment.getenvironmentvariable?view=net-5.0#definition
-                        facebookOptions.AppId = Environment.GetEnvironmentVariable("Facebook_AppId");
-                        facebookOptions.AppSecret = Environment.GetEnvironmentVariable("Facebook_AppSecret");
+                        facebookOptions.AppId = Environment.GetEnvironmentVariable("FACEBOOK_APPID");
+                        facebookOptions.AppSecret = Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET");
                     }
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 });
