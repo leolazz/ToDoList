@@ -24,5 +24,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 as base
 WORKDIR /app
 COPY --from=build /app ./
 
-ENTRYPOINT [ "dotnet", "ToDoList.dll", "--environment=Development" ]
+ENTRYPOINT [ "dotnet", "ToDoList.dll", "--environment=Production" ]
 

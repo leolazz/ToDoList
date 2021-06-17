@@ -41,6 +41,9 @@ namespace ToDoList
                 .AddEntityFrameworkStores<SQLiteDBContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+            Console.WriteLine("Hosting Enviroment is " + HostingEnvironment.EnvironmentName);
+            Console.WriteLine(Environment.GetEnvironmentVariable("FACEBOOK_APPID"));
+            Console.WriteLine(Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET"));
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
@@ -54,10 +57,12 @@ namespace ToDoList
                         //https://docs.microsoft.com/en-us/dotnet/api/system.environment.getenvironmentvariable?view=net-5.0#definition
                         facebookOptions.AppId = Environment.GetEnvironmentVariable("FACEBOOK_APPID");
                         facebookOptions.AppSecret = Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET");
+                        
                     }
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 });
             services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
