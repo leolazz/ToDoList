@@ -42,8 +42,8 @@ namespace ToDoList
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
             Console.WriteLine("Hosting Enviroment is " + HostingEnvironment.EnvironmentName);
-            Console.WriteLine(Environment.GetEnvironmentVariable("FACEBOOK_APPID"));
-            Console.WriteLine(Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET"));
+            Console.WriteLine("AppId is null or empty? ", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FACEBOOK_APPID")));
+            Console.WriteLine("AppSecret is null or empty? ", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET")));
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
