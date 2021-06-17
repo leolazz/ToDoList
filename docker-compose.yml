@@ -11,7 +11,7 @@ services:
           source: .\DB
           target: /ToDoList/DB/
       environment:
-        - FACEBOOK_APPID=306162131078600
-        - FACEBOOK_APPSECRET=872daecc1b3b0cba322f38029450e17e
+        - FACEBOOK_APPID=
+        - FACEBOOK_APPSECRET=
         - ASPNETCORE_ENVIRONMENT=Production
 
