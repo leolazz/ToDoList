@@ -8,18 +8,17 @@ using ToDoList.Data;
 using ToDoList.DTOs;
 using ToDoList.Interfaces;
 using ToDoList.Models;
+using ToDoList.ViewModels;
 
 namespace ToDoList.Services
 {
     public class TaskServices : ITaskServices
     {
         private SQLiteDBContext _context;
-        private UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         public TaskServices(SQLiteDBContext context, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _context = context;
-            _userManager = userManager;
             _mapper = mapper;
         }
         public TaskDto NewTask()
@@ -36,25 +35,61 @@ namespace ToDoList.Services
                 .SingleOrDefault(t => t.Id == id);
             return _mapper.Map<TaskDto>(task);
         }
-        public void SaveTask(TaskDto taskDto)
+        public void SaveTask(TaskDto taskDto, string userId)
         {
-            throw new NotImplementedException();
+            var task = _mapper.Map<Task>(taskDto);
+            if (task.Id == 0)
+            {
+                task.CreatedDate = DateTime.Now;
+                task.UserId = userId;
+            }
+            _context.Update(task);
+            _context.SaveChanges();
         }
         public void DeleteTask(int id)
         {
-            throw new NotImplementedException();
+            _context.Remove(_context.Tasks.FirstOrDefault(t => t.Id == id));
+            _context.SaveChanges();
         }
-        public IEnumerable<TaskDto> GetActiveTasks()
+ 
+        public TasksViewModel GetActiveTasks(string userId)
         {
-            throw new NotImplementedException();
+            var tasks = _context.Tasks
+               .Where(t => t.UserId == userId)
+               .Where(t => t.Completed == false)
+               .Include(t => t.Qualifiers)
+               .Include(t => t.Outcomes)
+               .Include(t => t.Details)
+               .ToList();
+            var viewModel = new TasksViewModel();
+            viewModel.taskDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
+            return viewModel;
         }
-        public IEnumerable<TaskDto> GetCompletedTasks()
+
+        public IEnumerable<TaskDto> GetCompletedTasks(string userId)
         {
-            throw new NotImplementedException();
+            var task = _context.Tasks
+               .Where(t => t.UserId == userId)
+               .Where(t => t.Completed == true)
+               .Include(t => t.Qualifiers)
+               .Include(t => t.Outcomes)
+               .Include(t => t.Details)
+               .ToList();
+            return _mapper.Map<IEnumerable<TaskDto>>(task);
         }
-        public IEnumerable<TaskDto> SearchTasks(string searchString)
+
+        public TasksViewModel SearchTasks(string searchString, string userId)
         {
-            throw new NotImplementedException();
+            var tasks = _context.Tasks
+               .Where(t => t.UserId == userId)
+               .Include(t => t.Qualifiers)
+               .Include(t => t.Outcomes)
+               .Include(t => t.Details)
+               .Where(x => EF.Functions.Like(x.Title, $"%{searchString}%"))
+               .ToList();
+            TasksViewModel viewModel = new TasksViewModel();
+            viewModel.taskDto = _mapper.Map<IEnumerable<TaskDto>>(tasks);
+            return viewModel;
         }
     }
 }
