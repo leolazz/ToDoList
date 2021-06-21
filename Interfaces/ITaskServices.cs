@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoList.DTOs;
+using ToDoList.ViewModels;
 
 namespace ToDoList.Interfaces
 {
@@ -10,11 +11,11 @@ namespace ToDoList.Interfaces
     {
         TaskDto NewTask();
         TaskDto EditTask(int id, string userId);
-        void SaveTask(TaskDto taskDto);
+        void SaveTask(TaskDto taskDto, string userId);
         void DeleteTask(int id);
-        IEnumerable<TaskDto> GetActiveTasks();
-        IEnumerable<TaskDto> GetCompletedTasks();
-        IEnumerable<TaskDto> SearchTasks(string searchString);
+        TasksViewModel GetActiveTasks(string userId);
+        IEnumerable<TaskDto> GetCompletedTasks(string userId);
+        TasksViewModel SearchTasks(string searchString, string userId);
 
 
     }
