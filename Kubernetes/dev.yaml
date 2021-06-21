@@ -21,6 +21,18 @@ spec:
           ports:
               - containerPort: 80
           env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+            - name: FACEBOOK_APPID
+              valueFrom:
+                secretKeyRef:
+                  name: dev-tobedone
+                  key: FACEBOOK_APPID
+            - name: FACEBOOK_APPSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: dev-tobedone
+                  key: FACEBOOK_APPSECRET  
             - name: PUID
               value: "1000"
             - name: PGID

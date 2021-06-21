@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
     web:
+      image: leolazz/2bdone:latest
       build: .
       ports: 
         - "5000:80"
@@ -10,5 +11,7 @@ services:
           source: .\DB
           target: /ToDoList/DB/
       environment:
-        - Development
+        - FACEBOOK_APPID=
+        - FACEBOOK_APPSECRET=
+        - ASPNETCORE_ENVIRONMENT=Production
 
