@@ -12,6 +12,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Principal;
 using ToDoList.ViewModels;
+using ToDoList.Services;
+using ToDoList.Interfaces;
 
 namespace ToDoList.Controllers
 {
@@ -20,11 +22,13 @@ namespace ToDoList.Controllers
         private readonly IMapper _mapper;
         private SQLiteDBContext _context;
         private UserManager<ApplicationUser> _userManager;
-        public TasksController(SQLiteDBContext context, IMapper mapper, UserManager<ApplicationUser> userManager  )
+        private ITaskServices _taskServices;
+        public TasksController(SQLiteDBContext context, IMapper mapper, UserManager<ApplicationUser> userManager, ITaskServices taskServices)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _taskServices = taskServices;
         }
         public ActionResult Index()
         {
@@ -37,14 +41,15 @@ namespace ToDoList.Controllers
         }
         public ActionResult Edit(int id)
         {
-            Task task = _context.Tasks
-                .Where(t => t.UserId == _userManager.GetUserId(User))
-                .Include(t => t.Qualifiers)
-                .Include(t => t.Outcomes)
-                .Include(t => t.Details)
-                .SingleOrDefault(t => t.Id == id);
+            return View("Edit", _taskServices.EditTask(id, _userManager.GetUserId(User)));
+            //Task task = _context.Tasks
+            //    .Where(t => t.UserId == _userManager.GetUserId(User))
+            //    .Include(t => t.Qualifiers)
+            //    .Include(t => t.Outcomes)
+            //    .Include(t => t.Details)
+            //    .SingleOrDefault(t => t.Id == id);
             
-            return View("Edit", _mapper.Map<TaskDto>(task));
+            //return View("Edit", _mapper.Map<TaskDto>(task));
         }
         [HttpPost]
         public ActionResult Save(TaskDto taskDto)

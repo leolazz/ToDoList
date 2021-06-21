@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoList.Data;
 using Microsoft.AspNetCore.Authentication;
+using ToDoList.Interfaces;
+using ToDoList.Services;
 
 namespace ToDoList
 {
@@ -62,6 +64,8 @@ namespace ToDoList
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 });
             services.AddControllersWithViews();
+
+            services.AddScoped<ITaskServices, TaskServices>();
 
         }
 
