@@ -16,7 +16,7 @@ namespace ToDoList.Services
     {
         private SQLiteDBContext _context;
         private readonly IMapper _mapper;
-        public TaskServices(SQLiteDBContext context, UserManager<ApplicationUser> userManager, IMapper mapper)
+        public TaskServices(SQLiteDBContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
