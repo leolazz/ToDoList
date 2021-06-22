@@ -1,8 +1,13 @@
 .basic-grid {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 2fr));
  }
+.long {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .basic-inline {
     display: inline;
     gap: 1rem;
