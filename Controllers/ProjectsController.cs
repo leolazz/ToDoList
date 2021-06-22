@@ -31,9 +31,8 @@ namespace ToDoList.Controllers
         public ActionResult New()
         {
             if (_userManager.GetUserId(User) == null)
-            {
                 return Redirect("/Identity/Account/Login");
-            }
+            
             return View("ProjectForm", _projectServices.NewProject(_userManager.GetUserId(User)));
         }
         public ActionResult Edit(int id)
@@ -57,17 +56,15 @@ namespace ToDoList.Controllers
         public ActionResult GetProjects()
         {
             if (_userManager.GetUserId(User) == null)
-            {
                return Redirect("/Identity/Account/Login");
-            }
+
             return View("Projects", _projectServices.GetActiveProjects(_userManager.GetUserId(User)));
         }
         public ActionResult Done()
         {
             if (_userManager.GetUserId(User) == null)
-            {
                 return Redirect("/Identity/Account/Login");
-            }
+            
             return View("Done", _projectServices.GetCompletedProjects(_userManager.GetUserId(User)));
         }
     }

@@ -75,7 +75,7 @@ namespace ToDoList.Services
                .Include(t => t.Outcomes)
                .Include(t => t.Details)
                .ToList();
-            return _mapper.Map<IEnumerable<TaskDto>>(task);
+            return _mapper.Map<IEnumerable<TaskDto>>(task); 
         }
 
         public TasksViewModel SearchTasks(string searchString, string userId)
