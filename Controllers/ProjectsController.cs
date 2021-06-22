@@ -47,7 +47,7 @@ namespace ToDoList.Controllers
                 _projectServices.SaveProject(projectVM, _userManager.GetUserId(User));
                 return RedirectToAction("GetProjects", "Projects");
             }
-            return RedirectToAction("Edit", "Projects");
+            return RedirectToAction("GetProjects", "Projects");
         }
         public ActionResult Delete(int id)
         {
