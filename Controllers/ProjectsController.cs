@@ -18,14 +18,10 @@ namespace ToDoList.Controllers
     public class ProjectsController : Controller
     {
         private IProjectServices _projectServices;
-        private readonly IMapper _mapper;
-        private SQLiteDBContext _context;
         private UserManager<ApplicationUser> _userManager;
-        public ProjectsController(IProjectServices projectServices, SQLiteDBContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public ProjectsController(IProjectServices projectServices, UserManager<ApplicationUser> userManager)
         {
             _projectServices = projectServices;
-            _context = context;
-            _mapper = mapper;
             _userManager = userManager;
         }
         public IActionResult Index()
@@ -38,80 +34,16 @@ namespace ToDoList.Controllers
             {
                 return Redirect("/Identity/Account/Login");
             }
-            //var ProjectViewModel = new ProjectsViewModel();
-            //var Tasks = _context.Tasks
-            //    .Where(t => t.UserId == _userManager.GetUserId(User))
-            //    .Where(t => t.Completed == false)
-            //    .Where(t => t.Project == null)
-            //    .ToList();
-            //ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(Tasks);
             return View("ProjectForm", _projectServices.NewProject(_userManager.GetUserId(User)));
         }
         public ActionResult Edit(int id)
         {
-            //var ProjectViewModel = new ProjectsViewModel();
-
-            //var Project = _context.Projects
-            //    .Where(t => t.UserId == _userManager.GetUserId(User))
-            //    .Where(t => t.Completed == false)
-            //    .SingleOrDefault(t => t.Id == id);
-
-            //var ProjectTasks = _context.Tasks
-            //    .Where(t => t.Project == Project)
-            //    .Include(t => t.Qualifiers)
-            //    .Include(t => t.Outcomes)
-            //    .Include(t => t.Details)
-            //    .ToList();
-
-            //var OrphanedTasks = _context.Tasks
-            //    .Where(t => t.UserId == _userManager.GetUserId(User))
-            //    .Where(t => t.Completed == false)
-            //    .Where(t => t.Project == null)
-            //    .ToList();
-
-
-            //ProjectViewModel.Project = _mapper.Map<ProjectDto>(Project);
-            //ProjectViewModel.Project.Tasks = _mapper.Map<List<TaskDto>>(ProjectTasks);
-            //ProjectViewModel.Tasks = _mapper.Map<List<TaskDto>>(OrphanedTasks);
-
             return View("Edit", _projectServices.EditProject(id, _userManager.GetUserId(User)));
         }
         public ActionResult Save(ProjectsViewModel projectVM)
         {
             if (ModelState.IsValid)
             {
-                //var Project = _mapper.Map<Project>(projectVM.Project);
-
-
-                //if (Project.Id == 0)
-                //{
-                //    Project.CreatedDate = DateTime.Now;
-                //    Project.UserId = _userManager.GetUserId(User);
-                //}
-
-                //_context.Update(Project);
-
-                //if (!string.IsNullOrEmpty(projectVM.SelectedTasks))
-                //{
-                //    string[] ids = projectVM.SelectedTasks.Split(',');
-
-                //    foreach (var id in ids)
-                //    {
-                //        var task = _context.Tasks.FirstOrDefault(t => t.Id == int.Parse(id));
-                //        task.Project = Project;
-                //        _context.Update(task);
-                //    }
-                //}
-                //if (Project.Completed)
-                //{
-                //    var tasks = _context.Tasks.Where(t => t.Project == Project).ToList();
-                //    foreach (var task in tasks)
-                //    {
-                //        task.Completed = true;
-                //        _context.Update(task);
-                //    }
-                //}
-                //_context.SaveChanges();
                 _projectServices.SaveProject(projectVM, _userManager.GetUserId(User));
                 return RedirectToAction("GetProjects", "Projects");
             }
@@ -119,15 +51,6 @@ namespace ToDoList.Controllers
         }
         public ActionResult Delete(int id)
         {
-            //var project = _context.Projects.FirstOrDefault(t => t.Id == id);
-            //_context.Remove(project);
-
-            //var tasks = _context.Tasks.Where(t => t.Project == project).ToList();
-            //foreach (var task in tasks)
-            //{
-            //    _context.Remove(task);
-            //}
-            //_context.SaveChanges();
             _projectServices.DeleteProject(id);
             return RedirectToAction("GetProjects");
         }
@@ -137,16 +60,6 @@ namespace ToDoList.Controllers
             {
                return Redirect("/Identity/Account/Login");
             }
-            //    var ProjectVM = new ProjectsViewModel();
-            //    var projects = _context.Projects
-            //    .Where(t => t.UserId == _userManager.GetUserId(User))
-            //    .Where(t => t.Completed == false)
-            //    .Include(t => t.Tasks)
-            //    .ToList();
-
-            //ProjectVM.ProjectList = _mapper.Map<List<ProjectDto>>(projects);
-
-                
             return View("Projects", _projectServices.GetActiveProjects(_userManager.GetUserId(User)));
         }
         public ActionResult Done()
@@ -155,15 +68,6 @@ namespace ToDoList.Controllers
             {
                 return Redirect("/Identity/Account/Login");
             }
-            //ProjectsViewModel ProjectVM = new ProjectsViewModel();
-            //var projects = _context.Projects
-            //.Where(t => t.UserId == _userManager.GetUserId(User))
-            //.Where(t => t.Completed == true)
-            //.Include(t => t.Tasks)
-            //.ToList();
-
-            //ProjectVM.ProjectList = _mapper.Map<List<ProjectDto>>(projects);
-
             return View("Done", _projectServices.GetCompletedProjects(_userManager.GetUserId(User)));
         }
     }
