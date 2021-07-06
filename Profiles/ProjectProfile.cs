@@ -12,12 +12,6 @@ namespace ToDoList.Profiles
         public ProjectProfile()
         {
             CreateMap<Project, ProjectDto>();
-
-                //.ForMember(dest =>
-                //dest.,
-                //opt => opt.MapFrom(src => src.Outcomes))
-
-
             CreateMap<ProjectDto, Project>();
                
         }
