@@ -4,6 +4,10 @@
 
 2BDone is a Web Based To Do List
 
+## ERD
+
+![diagram](assets/Database-Diagram.png)
+
 ## Installation
 Target ASP.NETCore 5.0 MVC
 
