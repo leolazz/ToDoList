@@ -14,6 +14,13 @@ Target ASP.NETCore 5.0 MVC
 Download ToDoList project folder and open in visual studio
 
 ## Requirements
+
+**Dotnet SDK v5**
+- https://dotnet.microsoft.com/download/dotnet/5.0
+
+**Dotnet Core v3.1**
+- https://dotnet.microsoft.com/download
+
 Following packages available from NuGet:
 
 AutoMapper (10.1.1)
@@ -32,11 +39,18 @@ System.Data.SQLite.Core (1.0.113.7)
 ```bash
 # build the solution
 $ dotnet build
-```
-
-```bash
 # run the solution
 $ dotnet run
+
+# build src
+$ dotnet build src
+# run src
+$ dotnet run --project src
+
+# build tests
+$ dotnet build tests
+# run tests
+$ dotnet run --project tests
 ```
 
 ## Docker
