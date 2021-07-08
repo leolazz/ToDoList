@@ -12,11 +12,11 @@ using ToDoList.Models;
 
 namespace ToDoList.Services
 {
-    public class ProjectServices : IProjectServices
+    public class ProjectService : IProjectService
     {
         private SQLiteDBContext _context;
         private readonly IMapper _mapper;
-        public ProjectServices(SQLiteDBContext context, IMapper mapper)
+        public ProjectService(SQLiteDBContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
