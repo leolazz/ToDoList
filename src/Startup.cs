@@ -64,8 +64,8 @@ namespace ToDoList
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 });
             services.AddControllersWithViews();
-            services.AddScoped<ITaskServices, TaskServices>();
-            services.AddScoped<IProjectServices, ProjectServices>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IProjectService, ProjectService>();
 
         }
 

@@ -6,7 +6,7 @@ using ToDoList.ViewModels;
 
 namespace ToDoList.Interfaces
 {
-    public interface IProjectServices
+    public interface IProjectService
     {
         ProjectsViewModel NewProject(string userId);
         ProjectsViewModel EditProject(int id, string userId);

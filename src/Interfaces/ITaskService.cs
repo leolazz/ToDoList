@@ -7,7 +7,7 @@ using ToDoList.ViewModels;
 
 namespace ToDoList.Interfaces
 {
-    public interface ITaskServices
+    public interface ITaskService
     {
         TaskDto NewTask();
         TaskDto EditTask(int id, string userId);
