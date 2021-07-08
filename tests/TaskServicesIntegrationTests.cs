@@ -10,9 +10,9 @@ using ToDoList.DTOs;
 
 namespace ToDoList.Tests
 {
-    public class TaskServicesTests
+    public class TaskServicesIntegrationTests
     {
-        public MapperConfiguration getMaps()
+        public Mapper GetMapper()
         {
             var cfg = new MapperConfigurationExpression();
             cfg.AddProfile<ProjectProfile>();
@@ -22,7 +22,8 @@ namespace ToDoList.Tests
             cfg.AddProfile<TaskQualifiersProfile>();
 
             var mapperConfig = new MapperConfiguration(cfg);
-            return mapperConfig;
+            var mapper = new Mapper(mapperConfig);
+            return mapper;
         }
         public TaskDto GetSingleTaskDto()
         {
@@ -41,25 +42,29 @@ namespace ToDoList.Tests
         [Fact]
         public void NewTask_Returns_New_TaskDto()
         {
+
+        }
+        [Fact]
+        public void SaveTask_Saves_Task_And_GetActiveTasks_Retrieves_Task()
+        {
             using (var factory = new SampleDbContextFactory())
             {
                 using (var context = factory.CreateContext())
                 {
-                    var mapper = new Mapper(getMaps());
-                    using (var ts = new TaskServiceTestImplementation(context, mapper))
+                    using (var ts = new TaskServiceTestImplementation(context, GetMapper()))
                     {
                         var task = GetSingleTaskDto();
-                        
                         ts.SaveTask(task, null);
                     }
                 }
                 using (var context = factory.CreateContext())
                 {
-                    var count = context.Tasks.Count();
-                    Assert.Equal(1, count);
-
-                    var t = context.Tasks.FirstOrDefault(task => task.Title == "test");
-                    Assert.NotNull(t);
+                    using (var ts = new TaskServiceTestImplementation(context, GetMapper()))
+                    {
+                        var vm = ts.GetActiveTasks(null);
+                        var task = vm.taskDto.FirstOrDefault(t => t.Title == "test");
+                        Assert.Equal("test", task.Title);
+                    }
                 }
             }
         }
