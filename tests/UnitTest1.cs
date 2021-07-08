@@ -1,12 +1,13 @@
 using System;
 using Xunit;
+using ToDoList.Services;
 
 namespace ToDoList.Tests
 {
-    public class UnitTest1
+    public class TaskServicesTests
     {
         [Fact]
-        public void Test1()
+        public void NewTask_Returns_New_TaskDto()
         {
 
         }
