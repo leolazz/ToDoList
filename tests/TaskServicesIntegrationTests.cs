@@ -93,7 +93,6 @@ namespace ToDoList.Tests
                     {
                         Assert.True(taskDto.Completed);
                     }
-                    context.Dispose();
                 }
             }
         }
