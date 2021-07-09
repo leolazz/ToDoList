@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
+using ToDoList.Data;
 using ToDoList.Models;
 
 namespace ToDoList.Tests
 {
-    public class SampleDbContextFactory : IDisposable
+    public class TestDbContext : IDisposable
     {
         private DbConnection _connection;
         private DbContextOptions<TestSQLiteDBContext> CreateOptions()
@@ -43,21 +44,12 @@ namespace ToDoList.Tests
             }
         }
 
-        public class TestSQLiteDBContext : IdentityDbContext<ApplicationUser>
+        public class TestSQLiteDBContext : ToDoListDbContext
         {
             public TestSQLiteDBContext(DbContextOptions options)
             : base(options)
             {
             }
-            public TestSQLiteDBContext()
-            {
-            }
-            public DbSet<Task> Tasks { get; set; }
-            public DbSet<TaskDetails> Details { get; set; }
-            public DbSet<TaskOutcomes> Outcomes { get; set; }
-            public DbSet<TaskQualifiers> Qualifiers { get; set; }
-            public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-            public DbSet<Project> Projects { get; set; }
 
         }
     }
