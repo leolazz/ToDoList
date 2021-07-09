@@ -14,9 +14,9 @@ namespace ToDoList.Services
 {
     public class ProjectService : IProjectService
     {
-        private SQLiteDBContext _context;
+        private ToDoListDbContext _context;
         private readonly IMapper _mapper;
-        public ProjectService(SQLiteDBContext context, IMapper mapper)
+        public ProjectService(ToDoListDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

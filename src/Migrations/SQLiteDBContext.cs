@@ -9,15 +9,10 @@ using ToDoList.Models;
 namespace ToDoList.Data
 {
     
-        public class SQLiteDBContext : IdentityDbContext<ApplicationUser>
+        public class SQLiteDBContext : ToDoListDbContext
         {
-            public DbSet<Task> Tasks { get; set; }
-            public DbSet<TaskDetails> Details { get; set; }
-            public DbSet<TaskOutcomes> Outcomes { get; set; }
-            public DbSet<TaskQualifiers> Qualifiers { get; set; }
-            public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-            public DbSet<Project> Projects { get; set; }
-            protected override void OnConfiguring(DbContextOptionsBuilder options) 
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options) 
                 => options.UseSqlite("Data Source=DB/sqlitetodolist.db");
 
         public SQLiteDBContext(DbContextOptions<SQLiteDBContext> options)
@@ -26,6 +21,17 @@ namespace ToDoList.Data
         } 
 
         }
-        
 
+        public abstract class ToDoListDbContext : IdentityDbContext<ApplicationUser>
+        {
+        public ToDoListDbContext(DbContextOptions options) : base(options)
+        {
+        }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<TaskDetails> Details { get; set; }
+        public DbSet<TaskOutcomes> Outcomes { get; set; }
+        public DbSet<TaskQualifiers> Qualifiers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        }
 }

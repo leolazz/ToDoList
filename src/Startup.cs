@@ -66,6 +66,7 @@ namespace ToDoList
             services.AddControllersWithViews();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ToDoListDbContext, SQLiteDBContext>();
 
         }
 
