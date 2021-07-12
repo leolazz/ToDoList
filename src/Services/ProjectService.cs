@@ -65,7 +65,9 @@ namespace ToDoList.Services
                 Project.CreatedDate = DateTime.Now;
                 Project.UserId = userId;
             }
-            _context.Update(Project);
+            // Changed to resolve exception that showed only in testing for tracking multiple entities with same id
+            _context.Entry(Project).CurrentValues.SetValues(Project);
+            _context.SaveChanges();  
             if (!string.IsNullOrEmpty(projectVM.SelectedTasks))
             {
                 string[] ids = projectVM.SelectedTasks.Split(',');
