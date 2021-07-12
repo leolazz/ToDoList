@@ -17,6 +17,7 @@ namespace ToDoList.Tests
         private DbContextOptions<TestSQLiteDBContext> CreateOptions()
         {
             return new DbContextOptionsBuilder<TestSQLiteDBContext>()
+                .EnableSensitiveDataLogging()
                 .UseSqlite(_connection).Options;
         }
         public TestSQLiteDBContext CreateContext()
