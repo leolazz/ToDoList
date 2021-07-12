@@ -176,47 +176,48 @@ namespace ToDoList.Tests
                 }
             }
         }
-        // FAILING DUE TO ENTITY ERROR OF TRACKING MULTIPLE PROJECTS WITH SAME ID...
-        //[Fact]
-        //public void SaveProject_Marks_Completed_On_Projects_and_Tasks()
-        //{
-        //    using (var factory = new TestDbContext())
-        //    {
-        //        using (var context = factory.CreateContext())
-        //        {
-        //            //Arrange
-        //            context.ApplicationUsers.Add(GetApplicationUser(context));
-        //            var ps = new ProjectService(context, GetMapper());
-        //            var ts = new TaskService(context, GetMapper());
-        //            ts.SaveTask(GetSingleTaskDto(), null);
-        //            ts.SaveTask(GetSingleTaskDto(), null);
-        //            ps.SaveProject(GetProjectsViewModel(), userId);
+        //FAILING DUE TO ENTITY ERROR OF TRACKING MULTIPLE PROJECTS WITH SAME ID...
+        [Fact]
+        public void SaveProject_Marks_Completed_On_Projects_and_Tasks()
+        {
+            using (var factory = new TestDbContext())
+            {
+                using (var context = factory.CreateContext())
+                {
+                    //Arrange
+                    context.ApplicationUsers.Add(GetApplicationUser(context));
+                    var ps = new ProjectService(context, GetMapper());
+                    var ts = new TaskService(context, GetMapper());
+                    ts.SaveTask(GetSingleTaskDto(), null);
+                    ts.SaveTask(GetSingleTaskDto(), null);
+                    ps.SaveProject(GetProjectsViewModel(), userId);
 
-        //            //Act
-        //            var projectToMarkCompeleted = ps.EditProject(1, userId);
-                    
-        //            ps.SaveProject(projectToMarkCompeleted, userId);
-                    
-        //            Assert.False(projectToMarkCompeleted.Project.Completed);
-        //            foreach (var task in projectToMarkCompeleted.Project.Tasks)
-        //            {
-        //                Assert.False(task.Completed);
-        //            }
-        //            projectToMarkCompeleted.Project.Completed = true;
-        //            ps.SaveProject(projectToMarkCompeleted, userId);
+                    //Act
+                    var mapper = GetMapper();
+                    var projectToMarkCompeleted = ps.EditProject(1, userId);
+                    projectToMarkCompeleted.Project = mapper.Map<ProjectDto>(context.Projects.SingleOrDefault(p => p.UserId == userId));
+                    ps.SaveProject(projectToMarkCompeleted, userId);
 
-        //            //Assert
-        //            var completedProject = ps.GetCompletedProjects(userId);
+                    Assert.False(projectToMarkCompeleted.Project.Completed);
+                    foreach (var task in projectToMarkCompeleted.Project.Tasks)
+                    {
+                        Assert.False(task.Completed);
+                    }
+                    projectToMarkCompeleted.Project.Completed = true;
+                    ps.SaveProject(projectToMarkCompeleted, userId);
 
-        //            Assert.Equal(2, completedProject.Project.Tasks.Count);
+                    //Assert
+                    var completedProject = ps.EditProject(1, userId);
 
-        //            foreach (var task in completedProject.Project.Tasks)
-        //            {
-        //                Assert.True(task.Completed);
-        //            }
+                    Assert.Equal(2, completedProject.Project.Tasks.Count);
 
-        //        }
-        //    }
-        //}
+                    foreach (var task in completedProject.Project.Tasks)
+                    {
+                        Assert.True(task.Completed);
+                    }
+
+                }
+            }
+        }
     }
 }
