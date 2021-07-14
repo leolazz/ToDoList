@@ -20,11 +20,11 @@ namespace ToDoList.Controllers
     public class TasksController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        private ITaskServices _taskServices;
-        public TasksController(UserManager<ApplicationUser> userManager, ITaskServices taskServices)
+        private ITaskService _taskService;
+        public TasksController(UserManager<ApplicationUser> userManager, ITaskService taskService)
         {
             _userManager = userManager;
-            _taskServices = taskServices;
+            _taskService = taskService;
         }
         public ActionResult Index()
         {
@@ -32,36 +32,36 @@ namespace ToDoList.Controllers
         }
         public ActionResult New()
         {
-           return View("TaskForm", _taskServices.NewTask());
+           return View("TaskForm", _taskService.NewTask());
         }
         public ActionResult Edit(int id)
         {
-            return View("Edit", _taskServices.EditTask(id, _userManager.GetUserId(User)));
+            return View("Edit", _taskService.EditTask(id, _userManager.GetUserId(User)));
           }
         [HttpPost]
         public ActionResult Save(TaskDto taskDto)
         {
             if (ModelState.IsValid)
-                _taskServices.SaveTask(taskDto, _userManager.GetUserId(User));
+                _taskService.SaveTask(taskDto, _userManager.GetUserId(User));
 
             return RedirectToAction("GetTasks", "Tasks");
         }
         public ActionResult Delete(int id)
         {
-            _taskServices.DeleteTask(id);
+            _taskService.DeleteTask(id);
             return RedirectToAction("GetTasks");
         }
         public ActionResult GetTasks()
         {
-            return View("Doing", _taskServices.GetActiveTasks(_userManager.GetUserId(User)));
+            return View("Doing", _taskService.GetActiveTasks(_userManager.GetUserId(User)));
         }
         public ActionResult Done()
         {
-            return View("Done", _taskServices.GetCompletedTasks(_userManager.GetUserId(User)));
+            return View("Done", _taskService.GetCompletedTasks(_userManager.GetUserId(User)));
         }
         public ActionResult Search(string searchString)
         {
-            return View("Results",  _taskServices.SearchTasks(searchString, _userManager.GetUserId(User)));
+            return View("Results",  _taskService.SearchTasks(searchString, _userManager.GetUserId(User)));
         }
     }
 }  

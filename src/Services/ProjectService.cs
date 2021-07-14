@@ -12,11 +12,11 @@ using ToDoList.Models;
 
 namespace ToDoList.Services
 {
-    public class ProjectServices : IProjectServices
+    public class ProjectService : IProjectService
     {
-        private SQLiteDBContext _context;
+        private ToDoListDbContext _context;
         private readonly IMapper _mapper;
-        public ProjectServices(SQLiteDBContext context, IMapper mapper)
+        public ProjectService(ToDoListDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -54,7 +54,7 @@ namespace ToDoList.Services
                 Project = _mapper.Map<ProjectDto>(Project),
                 Tasks = _mapper.Map<List<TaskDto>>(OrphanedTasks)
             };
-            ProjectVM.Project.Tasks = _mapper.Map<List<TaskDto>>(ProjectTasks); // Error here when saving a project without selecting date
+            ProjectVM.Project.Tasks = _mapper.Map<List<TaskDto>>(ProjectTasks);
             return ProjectVM;   
         }
         public void SaveProject(ProjectsViewModel projectVM, string userId)
@@ -65,7 +65,7 @@ namespace ToDoList.Services
                 Project.CreatedDate = DateTime.Now;
                 Project.UserId = userId;
             }
-            _context.Update(Project);
+            _context.Update(Project); 
             if (!string.IsNullOrEmpty(projectVM.SelectedTasks))
             {
                 string[] ids = projectVM.SelectedTasks.Split(',');

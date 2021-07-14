@@ -11,6 +11,6 @@ namespace ToDoList
 {
     public class ApplicationUser : IdentityUser
     {
-        
+
     }
 }

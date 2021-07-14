@@ -12,15 +12,16 @@ using ToDoList.ViewModels;
 
 namespace ToDoList.Services
 {
-    public class TaskServices : ITaskServices
+    public class TaskService : ITaskService
     {
-        private SQLiteDBContext _context;
+        private ToDoListDbContext _context;
         private readonly IMapper _mapper;
-        public TaskServices(SQLiteDBContext context, IMapper mapper)
+        public TaskService(ToDoListDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
+
         public TaskDto NewTask()
         {
             return new TaskDto();
