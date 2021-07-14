@@ -54,7 +54,7 @@ namespace ToDoList.Services
                 Project = _mapper.Map<ProjectDto>(Project),
                 Tasks = _mapper.Map<List<TaskDto>>(OrphanedTasks)
             };
-            ProjectVM.Project.Tasks = _mapper.Map<List<TaskDto>>(ProjectTasks); // Error here when saving a project without selecting date
+            ProjectVM.Project.Tasks = _mapper.Map<List<TaskDto>>(ProjectTasks);
             return ProjectVM;   
         }
         public void SaveProject(ProjectsViewModel projectVM, string userId)
@@ -65,10 +65,6 @@ namespace ToDoList.Services
                 Project.CreatedDate = DateTime.Now;
                 Project.UserId = userId;
             }
-            // Changed to resolve exception that showed only in testing for tracking multiple entities with same id
-            // Now breaking other test case
-            //_context.Entry(Project).CurrentValues.SetValues(Project);
-            //_context.SaveChanges();  
             _context.Update(Project); 
             if (!string.IsNullOrEmpty(projectVM.SelectedTasks))
             {
