@@ -17,41 +17,31 @@ spec:
     spec:
       containers:
         - name: tobedone
-          image: leolazz/2bdone:latest
+          image: leolazz/2bdone:2.1
           ports:
-              - containerPort: 80
+            - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production
-            - name: FACEBOOK_APPID
-              valueFrom:
-                secretKeyRef:
-                  name: dev-tobedone
-                  key: FACEBOOK_APPID
-            - name: FACEBOOK_APPSECRET
-              valueFrom:
-                secretKeyRef:
-                  name: dev-tobedone
-                  key: FACEBOOK_APPSECRET  
             - name: PUID
-              value: "1000"
+              value: '1000'
             - name: PGID
-              value: "1000"
+              value: '1000'
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "500m"
+              memory: '128Mi'
+              cpu: '500m'
             limits:
-              memory: "512Mi"
-              cpu: "1000m"
+              memory: '512Mi'
+              cpu: '1000m'
           volumeMounts:
-          - mountPath: /ToDoList/data/
-            name: tobedone-data
+            - mountPath: /ToDoList/data/
+              name: tobedone-data
           imagePullPolicy: Always
       volumes:
-      - name: tobedone-data
-        persistentVolumeClaim:
-          claimName: tobedone-pvc
+        - name: tobedone-data
+          persistentVolumeClaim:
+            claimName: tobedone-pvc
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -63,10 +53,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: longhorn
   resources:
     requests:
-      storage: 2Gi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -76,9 +65,9 @@ metadata:
     app: tobedone
 spec:
   ports:
-  - port: 80
-    targetPort: 80
-    name: tcp
+    - port: 80
+      targetPort: 80
+      name: tcp
   selector:
     app: tobedone
 ---
@@ -89,7 +78,7 @@ metadata:
   labels:
     app: tobedone
   annotations:
-    kubernetes.io/ingress.class: "traefik"
+    kubernetes.io/ingress.class: 'traefik'
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   tls:
@@ -97,9 +86,9 @@ spec:
       hosts:
         - '*.internal.lazz.tech'
   rules:
-  - host: tobedone.internal.lazz.tech
-    http:
-      paths:
-      - backend:
-          serviceName: tobedone-service
-          servicePort: 80
+    - host: tobedone.internal.lazz.tech
+      http:
+        paths:
+          - backend:
+              serviceName: tobedone-service
+              servicePort: 80
