@@ -44,25 +44,6 @@ namespace ToDoList
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
             Console.WriteLine("Hosting Enviroment is " + HostingEnvironment.EnvironmentName);
-            Console.WriteLine("AppId is null or empty? ", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FACEBOOK_APPID")));
-            Console.WriteLine("AppSecret is null or empty? ", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET")));
-            services.AddAuthentication()
-                .AddFacebook(facebookOptions =>
-                {
-                    if (HostingEnvironment.IsDevelopment())
-                    {
-                        facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                        facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                    }
-                    else
-                    {
-                        //https://docs.microsoft.com/en-us/dotnet/api/system.environment.getenvironmentvariable?view=net-5.0#definition
-                        facebookOptions.AppId = Environment.GetEnvironmentVariable("FACEBOOK_APPID");
-                        facebookOptions.AppSecret = Environment.GetEnvironmentVariable("FACEBOOK_APPSECRET");
-                        
-                    }
-                    facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
-                });
             services.AddControllersWithViews();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IProjectService, ProjectService>();

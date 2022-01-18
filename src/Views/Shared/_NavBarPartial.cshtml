@@ -33,9 +33,19 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@account</a>
                         <div class="dropdown-menu bg-dark">
-                            <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Identity/Account/Manage")">Settings</a>
+                          
+                            @{
+                                if (User.Identity.Name == null)
+                                {
+                                  <a class="dropdown-item-dark text-success" href="@Url.Content("/Identity/Account/Login")">Log In</a> 
+                                } else
+                                {
+                                    <a class="dropdown-item-dark text-white-50" href="@Url.Content("/Identity/Account/Manage")">Settings</a>
                             <div class="dropdown-divider-dark"></div>
                             <a class="dropdown-item-dark text-danger" href="@Url.Content("/Identity/Account/Logout")">Logout</a>
+                                }
+
+                            }
                         </div>
                     </li>
                 </ul>
