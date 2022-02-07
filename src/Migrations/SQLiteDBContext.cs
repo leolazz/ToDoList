@@ -12,8 +12,8 @@ namespace ToDoList.Data
         public class SQLiteDBContext : ToDoListDbContext
         {
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options) 
-                => options.UseSqlite("Data Source=DB/sqlitetodolist.db");
+        // protected override void OnConfiguring(DbContextOptionsBuilder options) 
+        //         => options.UseSqlite("Filename=app/src/DB/sqlite.db");
 
         public SQLiteDBContext(DbContextOptions<SQLiteDBContext> options)
         : base(options)

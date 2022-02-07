@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tobedone
-          image: leolazz/2bdone:2.1
+          image: leolazz/2bdone:2.2
           ports:
             - containerPort: 80
           env:
@@ -35,7 +35,7 @@ spec:
               memory: '512Mi'
               cpu: '1000m'
           volumeMounts:
-            - mountPath: /ToDoList/data/
+            - mountPath: /db
               name: tobedone-data
           imagePullPolicy: Always
       volumes:

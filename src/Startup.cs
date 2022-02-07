@@ -15,6 +15,7 @@ using ToDoList.Data;
 using Microsoft.AspNetCore.Authentication;
 using ToDoList.Interfaces;
 using ToDoList.Services;
+using System.IO;
 
 namespace ToDoList
 {
@@ -33,10 +34,21 @@ namespace ToDoList
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+          if (HostingEnvironment.IsProduction()){
+            services.AddDbContext<SQLiteDBContext>(db =>
+            {
+                var contentRoot = Configuration[HostDefaults.ContentRootKey];
+                var path = Path.Combine(Path.GetDirectoryName(contentRoot), Configuration.GetConnectionString("ProductionDeployment"));
+                db.UseSqlite($"Data Source={path}");
+                services.AddDatabaseDeveloperPageExceptionFilter();
+            });
+          } else {
             services.AddDbContext<SQLiteDBContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlite(
+            Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+          }
+            
 
             services.AddIdentity<ApplicationUser, IdentityRole>
                 (options => options.SignIn.RequireConfirmedAccount = false)
@@ -52,8 +64,10 @@ namespace ToDoList
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SQLiteDBContext dataContext)
         {
+            dataContext.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
