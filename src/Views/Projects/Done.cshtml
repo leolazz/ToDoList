@@ -2,12 +2,16 @@
 @{
     ViewData["Title"] = "Done";
 }
-<h1 class="text-center text-white-50">Completed Projects</h1>
 @{
+   @if (Model.ProjectList.Count() == 0 )
+      {
+       <h1 class="text-center text-white-50"> No Completed Projects</h1> 
+      } else {
+        <h1 class="text-center text-white-50"> Completed Projects</h1> 
     <section style="background-color: #343a40" class="basic-grid">
+
         @foreach (var project in Model.ProjectList)
         {
-            <section style="background-color: #343a40" class="basic-grid">
                 <div class="list-group">
                     <h3 class="card-header text-white-50">@Html.ActionLink("DELETE", "DELETE", new { id = project.Id, @class = "btn-primary btn-sm text-white-50" }, null)</h3>
                     <a class="list-group-item-Midnight list-group-item-action-dark flex-column align-items-start active">
@@ -46,8 +50,8 @@
                         </ul>
                     </div>
                 </div>
-            </section>
         }
-    </section>
+            </section>
+      }
 
 }

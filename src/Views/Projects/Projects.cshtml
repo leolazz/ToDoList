@@ -2,10 +2,14 @@
 @{
     ViewData["Title"] = "Projects";
 }
-<h1 class="text-center text-white-50"> Projects </h1>
-
 @{
-<section style="background-color: #343a40"class="basic-grid">
+   @if (Model.ProjectList.Count() == 0 )
+      {
+       <h1 class="text-center text-white-50"> No Ongoing Projects</h1> 
+      } else {
+        <h1 class="text-center text-white-50"> Ongoing Projects</h1> 
+    <section style="background-color: #343a40" class="basic-grid">
+
     @foreach (var project in Model.ProjectList)
     {
         foreach (var item in project.Tasks)
@@ -51,5 +55,6 @@
         </section>
     }
     </section>
+      }
 
 }

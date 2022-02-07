@@ -3,7 +3,11 @@
     ViewData["Title"] = "Doing";
 }
 @{
-    <h1 class="text-center text-white-50"> Ongoing Tasks</h1>
+        @if (Model.taskDto.Count() == 0 )
+      {
+       <h1 class="text-center text-white-50"> No Ongoing Tasks</h1> 
+      } else {
+        <h1 class="text-center text-white-50"> Ongoing Tasks</h1> 
     <section style="background-color: #343a40"class="basic-grid">
         @foreach (var task in Model.taskDto)
         {
@@ -54,5 +58,8 @@
                 </div>
             </div>
         }
+
+
     </section>
+}
 }
