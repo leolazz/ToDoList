@@ -21,19 +21,6 @@ Download ToDoList project folder and open in visual studio
 **Dotnet Core v3.1**
 - https://dotnet.microsoft.com/download
 
-Following packages available from NuGet:
-
-AutoMapper (10.1.1)
-AutoMapper.Extensions.Microsoft.DependencyInjection (8.1.1)
-Microsoft.AspNetCore.Diagnotistics.EntityFrameworkCore (5.0.5)
-Microsoft.AspNetCore.Identity.EntityFrameworkCore (5.0.5)
-Microsoft.AspNetCore.Identity.Ui (5.0.5)
-Microsoft.FrameworkCore (5.0.5)
-Microsoft.FrameworkCore.SQLit (5.0.5)
-Microsoft.FrameworkCore.Tools (5.0.5)
-SQLite (3.13.0)
-System.Data.SQLite.Core (1.0.113.7)
-
 ## Usage
 
 ```bash
