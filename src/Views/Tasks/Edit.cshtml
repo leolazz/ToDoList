@@ -7,7 +7,7 @@
 {
     <div class="form-group">
         @Html.LabelFor(t => t.Title, new { @class = "text-white-50" })
-        @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder = "Enter the name of your task" })
+        @Html.TextBoxFor(t => t.Title, new { @class = "form-control", placeholder = "Enter the name of your task", required="required" })
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.Details.Details, new { @class = "text-white-50" })
@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(t => t.EndDate, new { @class = "text-white-50" })
-        @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToShortDateString(), })
+        @Html.TextBoxFor(t => t.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToShortDateString(), required="required" })
         <p class="text-muted ">Orignal Deadline: @Model.EndDate.ToShortDateString() </p>
     </div>
     <div class="form-group">
