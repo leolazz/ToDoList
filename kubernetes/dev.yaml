@@ -82,11 +82,11 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   tls:
-    - secretName: internal-acme-crt-secret
+    - secretName: lazztech-acme-crt-secret
       hosts:
-        - '*.internal.lazz.tech'
+        - '*.lazz.tech'
   rules:
-    - host: tobedone.internal.lazz.tech
+    - host: 2bedone.lazz.tech
       http:
         paths:
           - backend:
