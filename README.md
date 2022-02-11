@@ -1,8 +1,8 @@
-# ToDoList
+# 2BeDone
 
 [![ToDoList .Net](https://github.com/leolazz/ToDoList/actions/workflows/Integrate.yml/badge.svg)](https://github.com/leolazz/ToDoList/actions/workflows/Integrate.yml)
 
-2BDone is a Web Based To Do List
+2BeDone is a Web Based To Do List
 
 
 ![screenshot](/2bedone.png)
