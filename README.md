@@ -2,16 +2,24 @@
 
 [![ToDoList .Net](https://github.com/leolazz/ToDoList/actions/workflows/Integrate.yml/badge.svg)](https://github.com/leolazz/ToDoList/actions/workflows/Integrate.yml)
 
+# Description:
+
 2BeDone is a Web Based project and task tracker.
 
-### Goals: 
-As a first project the focus was to exercise skills learned from various courses and be a cumulative demonstration of knowledge and ability, at the same to learn additional skills, and try to finish the project quickly.  
+### Why I made this:
 
-### Limitations: 
-Beginner level experience and knowledge while demonstrating adherence to S.O.L.I.D. principles, and trying to work quickly.
+As a first project the goal was to exercise skills learned from various courses and be a cumulative demonstration of knowledge and ability, while learning additional skills, and trying to finish the project quickly.
 
-### Challenges: 
-Trying to complete the project quickly while solidifying new information, all the while, not getting lost in the weeds of the minutiae of less relevant aspects.
+### Constraints & Challenges:
+
+- Beginner level experience and knowledge
+- Learning and adhering to S.O.L.I.D. principles
+- Trying to complete the project quickly while solidifying new information.
+- Not getting lost in the weeds of the minutiae of less relevant aspects.
+
+### Results:
+
+-
 
 ![screenshot](/2bedone.png)
 
@@ -20,6 +28,7 @@ Trying to complete the project quickly while solidifying new information, all th
 ![diagram](assets/Database-Diagram.png)
 
 ## Installation
+
 Target ASP.NETCore 5.0 MVC
 
 Download ToDoList project folder and open in visual studio
@@ -27,9 +36,11 @@ Download ToDoList project folder and open in visual studio
 ## Requirements
 
 **Dotnet SDK v5**
+
 - https://dotnet.microsoft.com/download/dotnet/5.0
 
 **Dotnet Core v3.1**
+
 - https://dotnet.microsoft.com/download
 
 ## Usage
@@ -87,8 +98,9 @@ $ docker-compose up
 ```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
