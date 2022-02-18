@@ -2,24 +2,35 @@
 
 [![ToDoList .Net](https://github.com/leolazz/ToDoList/actions/workflows/Integrate.yml/badge.svg)](https://github.com/leolazz/ToDoList/actions/workflows/Integrate.yml)
 
+# Live Deployment: https://2bedone.lazz.tech/
+
 # Description:
 
 2BeDone is a Web Based project and task tracker.
 
 ### Why I made this:
 
-As a first project the goal was to exercise skills learned from various courses and be a cumulative demonstration of knowledge and ability, while learning additional skills, and trying to finish the project quickly.
+After spending hundreds of hours watching course lectures, working through examples, and challenge projects, I wanted to create something on my own. Separate from any guided material. At the time I wasn't confident with my skill level so I used a contrived project idea. This helped me to start immediately and focus more on the development process and larger patterns. Rather than having an extended planning and design phase that could easily result from a more original idea.
+
+- Exercise skills & knowledge from various courses
+- Serve as a cumulative demonstration of knowledge and ability at the time
+- Learn additional skills, while solidifying prior learning
+- Break out of hand holding learning process of courses
 
 ### Constraints & Challenges:
 
 - Beginner level experience and knowledge
 - Learning and adhering to S.O.L.I.D. principles
-- Trying to complete the project quickly while solidifying new information.
-- Not getting lost in the weeds of the minutiae of less relevant aspects.
+  - Rapidly learning:
+  - Docker and how to dockerize the application
+  - Kubernetes and deployment
+- Working to complete the project quickly while solidifying new information
+- Not getting lost in the minutiae of less relevant aspects
 
 ### Results:
 
--
+Solidified lessons from months of courses, learned  Dev-Ops technologies, greatly increased confidence in skill level, and gained a clearer understanding of the reality of software development.
+
 
 ![screenshot](/2bedone.png)
 
