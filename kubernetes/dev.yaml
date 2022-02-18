@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tobedone
-          image: leolazz/2bdone:2.3
+          image: leolazz/2bdone:latest
           ports:
             - containerPort: 80
           env:
