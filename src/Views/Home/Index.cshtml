@@ -2,10 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div  class="text-center">
+<div class="text-center">
     <div class="modal-title">
         <h1 class="display-4 text-white-50">Welcome</h1>
         <h3 class="text-white-50"">²BᵉDᵒⁿᵉ is a management tool for tracking to do lists. It utilizes ASP.net Core and MVC.</h3>
     </div>
     <p class="text-white-50">You can view task that are currently underway by visiting the "doing" tab on the navigation bar at the top, or view you completed tasks under the "done" tab. Additionally, if you are having trouble finding one in particular you search your tasks on the top right.</p>
+</div>
+<div style="margin-top: 50px;" class="row">
+    <div class="col-lg-2 offset-lg-5 col-md-3 offset-md-4 col-sm-4 offset-sm-6 col-xs-4 offset-xs-6" >
+    <a class="btn-primary btn-lg " href="@Url.Content("/Identity/Account/Login")">Log In</a> 
+    </div>
 </div>

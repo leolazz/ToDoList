@@ -14,31 +14,35 @@
         {
                 <div class="list-group">
                     <h3 class="card-header text-white-50">@Html.ActionLink("DELETE", "DELETE", new { id = project.Id, @class = "btn-primary btn-sm text-white-50" }, null)</h3>
-                    <a class="list-group-item-Midnight list-group-item-action-dark flex-column align-items-start active">
+                    <div class="list-group-item-Midnight list-group-item-action-dark flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1 text-white-50">@project.Title</h5>
                             <small>@project.CreatedDate.ToShortDateString()</small>
                         </div>
                         <p class="mb-1 text-white-50">@project.Description</p>
-                        <small>Goals:</small>
-                        <small></small>
-                    </a>
+                    </div>
                     <div class="bs-component">
                         <ul class="list-group">
                             @{ foreach (var task in project.Tasks)
                                 {
-                                    TimeSpan eta = task.EndDate - DateTime.Now;
-                                    string color;
-                                    if (eta.Days <= 7)
+                                TimeSpan eta = task.EndDate - DateTime.Now;
+                                string color;
+                                
+                                if (task.Completed == true) {
+                                  color = "#4BB543";
+                                }
+                                else if (eta.Days <= 7)
+                                {
+                                    if (eta.Days == 0)
                                     {
-                                        if (eta.Days < 0)
-                                        {
-                                            color = Model.Colors[0];
-                                        }
-                                        else
-                                            color = Model.Colors[eta.Days];
+                                        color = Model.Colors[0];
+                                    } else if(eta.Days < 0) {
+                                      color = "#202020";
                                     }
-                                    else color = "#004953";
+                                    else
+                                        color = Model.Colors[eta.Days];
+                                }
+                                else color = "#004953";
 
                                     <li class="list-group-item-Midnight d-flex justify-content-between align-items-center text-white-50" style="background-color:@color">
                                         @task.Title

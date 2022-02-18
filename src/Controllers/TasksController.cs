@@ -32,10 +32,16 @@ namespace ToDoList.Controllers
         }
         public ActionResult New()
         {
+           if (_userManager.GetUserId(User) == null)
+              return Redirect("/Identity/Account/Login");
+
            return View("TaskForm", _taskService.NewTask());
         }
         public ActionResult Edit(int id)
         {
+            if (_userManager.GetUserId(User) == null)
+              return Redirect("/Identity/Account/Login");
+              
             return View("Edit", _taskService.EditTask(id, _userManager.GetUserId(User)));
           }
         [HttpPost]
@@ -53,14 +59,23 @@ namespace ToDoList.Controllers
         }
         public ActionResult GetTasks()
         {
+            if (_userManager.GetUserId(User) == null)
+              return Redirect("/Identity/Account/Login");
+
             return View("Doing", _taskService.GetActiveTasks(_userManager.GetUserId(User)));
         }
         public ActionResult Done()
         {
+            if (_userManager.GetUserId(User) == null)
+              return Redirect("/Identity/Account/Login");
+              
             return View("Done", _taskService.GetCompletedTasks(_userManager.GetUserId(User)));
         }
         public ActionResult Search(string searchString)
         {
+            if (_userManager.GetUserId(User) == null)
+              return Redirect("/Identity/Account/Login");
+              
             return View("Results",  _taskService.SearchTasks(searchString, _userManager.GetUserId(User)));
         }
     }

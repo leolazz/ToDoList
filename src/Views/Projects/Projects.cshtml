@@ -24,7 +24,6 @@
                         <small>@project.CreatedDate.ToShortDateString()</small>
                     </div>
                     <p class="mb-1 text-white-50">@project.Description</p>
-                    <small>Goals:</small>
                 </a>
                 <div class="bs-component">
                     <ul class="list-group">
@@ -32,11 +31,17 @@
                             {
                                 TimeSpan eta = task.EndDate - DateTime.Now;
                                 string color;
-                                if (eta.Days <= 7)
+                                
+                                if (task.Completed == true) {
+                                  color = "#4BB543";
+                                }
+                                else if (eta.Days <= 7)
                                 {
-                                    if (eta.Days < 0)
+                                    if (eta.Days == 0)
                                     {
                                         color = Model.Colors[0];
+                                    } else if(eta.Days < 0) {
+                                      color = "#202020";
                                     }
                                     else
                                         color = Model.Colors[eta.Days];
